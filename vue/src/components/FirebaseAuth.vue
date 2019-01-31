@@ -7,7 +7,6 @@
 
 <script>
 import firebase from 'firebase'
-import firebaseConfig from '@/firebase-config'
 
 export default {
   name: 'firebase-auth',
@@ -47,8 +46,6 @@ export default {
     }
   },
   created () {
-    firebase.initializeApp(firebaseConfig)
-
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         // User is signed in.

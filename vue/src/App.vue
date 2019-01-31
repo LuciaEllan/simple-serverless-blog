@@ -3,7 +3,9 @@
     <FirebaseAuth></FirebaseAuth>
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/about">About</router-link> |
+      <router-link to="/edit">Post Add Test</router-link> |
+      <router-link to="/post/RAiS13Ksn0pXs0eFGw06">Post View Test</router-link>
     </div>
     <router-view/>
   </div>
@@ -32,12 +34,18 @@
 </style>
 
 <script>
+import firebase from 'firebase'
+import firebaseConfig from '@/configs/firebase-config'
+
 import FirebaseAuth from '@/components/FirebaseAuth'
 
 export default {
   name: 'app',
   components: {
     FirebaseAuth
+  },
+  created () {
+    firebase.initializeApp(firebaseConfig)
   }
 }
 </script>
