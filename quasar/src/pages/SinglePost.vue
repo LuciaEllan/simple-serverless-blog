@@ -53,7 +53,7 @@ export default {
             this.postData = undefined
             console.log('post does not exist')
           } else {
-            this.postData = Object.assign({ id: result.docs[0].id }, result.docs[0].data())
+            this.postData = { id: result.docs[0].id, ...result.docs[0].data() }
             console.log(result.docs[0].data())
           }
         }).catch(error => {

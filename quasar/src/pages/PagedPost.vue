@@ -37,7 +37,7 @@ export default {
         query = query.startAfter(this.lastPostRef)
       }
       query.get().then(result => {
-        this.postsData = this.postsData.concat(result.docs.map((doc, index, docs) => Object.assign({ id: doc.id }, doc.data())))
+        this.postsData = this.postsData.concat(result.docs.map((doc, index, docs) => ({ id: doc.id, ...doc.data() })))
         if (result.empty) {
           this.hasMorePosts = false
         } else {
