@@ -33,14 +33,28 @@ export default {
     loadPost () {
       const postID = this.$route.params.post_id
       if (postID && (postID.length > 0)) {
-        const docRef = this.firestore.collection('posts').doc(postID)
-        docRef.get().then(post => {
-          if (post.exists) {
-            this.postData = Object.assign({ id: post.id }, post.data())
-            console.log(post.data())
-          } else {
+        // const docRef = this.firestore.collection('posts').doc(postID)
+        // docRef.get().then(post => {
+        //   if (post.exists) {
+        //     this.postData = Object.assign({ id: post.id }, post.data())
+        //     console.log(post.data())
+        //   } else {
+        //     this.postData = undefined
+        //     console.log('post does not exist')
+        //   }
+        // }).catch(error => {
+        //   this.postData = undefined
+        //   console.log('error during getting post: ' + error)
+        // })
+
+        const query = this.firestore.collection('posts').where(firebase.firestore.FieldPath.documentId(), '==', postID).where('is_public', '==', true)
+        query.get().then(result => {
+          if (result.empty) {
             this.postData = undefined
             console.log('post does not exist')
+          } else {
+            this.postData = Object.assign({ id: result.docs[0].id }, result.docs[0].data())
+            console.log(result.docs[0].data())
           }
         }).catch(error => {
           this.postData = undefined

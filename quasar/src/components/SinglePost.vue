@@ -62,7 +62,7 @@ export default {
       return marked(this.body)
     },
     permalinkRoute () {
-      return `post/${this.id}`
+      return `/post/${this.id}`
     }
   }
 }
