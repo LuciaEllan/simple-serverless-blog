@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- <div v-if="currentUser != null"> -->
+    <div v-if="currentUser != null">
     <div>
       <p>Post title: <input type="text" v-model="title"></p>
       <p><textarea v-model="body"></textarea></p>
@@ -35,8 +35,8 @@ export default {
           body: this.body,
           tags: this.tags.split(','),
           is_public: true,
-          // author: this.currentUser.displayName,
-          author: 'None',
+          author: this.currentUser.displayName,
+          author_id: this.currentUser.uid,
           date: new Date()
         }).then(docRef => {
           alert(`Document is created with id=${docRef.id}`)
