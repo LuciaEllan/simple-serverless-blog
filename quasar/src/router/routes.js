@@ -1,33 +1,30 @@
-import TheApp from 'layouts/TheApp'
 import ReadPost from 'layouts/ReadPost'
 import SinglePostPage from 'pages/SinglePost'
 import MultiPostPage from 'pages/PagedPost'
-import CreatePostPage from 'pages/CreatePost'
+import EditPostPage from 'pages/EditPost'
 
 const routes = [
   {
     path: '/',
-    component: TheApp,
+    component: ReadPost,
     children: [
       {
         path: '',
-        component: ReadPost,
-        children: [
-          { path: '', component: MultiPostPage }
-        ]
+        component: MultiPostPage
       },
       {
-        path: 'post',
-        component: ReadPost,
-        children: [
-          { path: ':post_id', component: SinglePostPage }
-        ]
-      },
-      {
-        path: 'write',
-        component: CreatePostPage
+        path: 'post/:post_id',
+        component: SinglePostPage
       }
     ]
+  },
+  {
+    path: '/edit',
+    component: EditPostPage
+  },
+  {
+    path: '/edit/:post_id',
+    component: EditPostPage
   }
 ]
 

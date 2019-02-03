@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <q-page>
     <SinglePost v-for="post in postsData" :key="post.id" v-bind="post"></SinglePost>
     <div>
       <q-btn v-if="hasMorePosts" @click="loadPost">See more posts</q-btn>
     </div>
-  </div>
+  </q-page>
 </template>
 
 <script>
@@ -28,13 +28,19 @@ export default {
   computed: {
     hasPost () {
       return this.postsData !== undefined
+    },
+    isLoggedIn () {
+      return this.$store.getters.isWritableUser
     }
   },
   methods: {
     loadPost () {
-      let query = this.firestore.collection('posts').where('is_public', '==', true).orderBy('date', 'desc').limit(BlogConfig.postsPerPage)
+      let query = this.firestore.collection('posts').orderBy('date', 'desc').limit(BlogConfig.postsPerPage)
       if (this.lastPostRef) {
         query = query.startAfter(this.lastPostRef)
+      }
+      if (!this.isLoggedIn) {
+        query = query.where('is_public', '==', true)
       }
       query.get().then(result => {
         this.postsData = this.postsData.concat(result.docs.map((doc, index, docs) => ({ id: doc.id, ...doc.data() })))
@@ -60,5 +66,4 @@ export default {
 </script>
 
 <style>
-
 </style>

@@ -4,7 +4,10 @@
     <div class="q-body-1">at {{dateDisplay}}, by {{author}}</div>
     <div class="blog_post_body" v-html="parsedMarkdown"></div>
     <div class="q-body-1">Tags: {{tagsDisplay}}</div>
-    <div class="q-body-1">Permalink: <router-link :to="permalinkRoute">{{permalinkRoute}}</router-link></div>
+    <div class="q-body-1">
+      <span v-if="isLoggedIn" style="margin-right: 20px;"><router-link :to="editPostRoute">Edit</router-link></span>
+      Permalink: <router-link :to="permalinkRoute">{{permalinkRoute}}</router-link>
+    </div>
   </div>
 </template>
 
@@ -63,6 +66,13 @@ export default {
     },
     permalinkRoute () {
       return `/post/${this.id}`
+    },
+    editPostRoute () {
+      return `/edit/${this.id}`
+    },
+    isLoggedIn () {
+      console.log(this.$store.getters.isWritableUser)
+      return this.$store.getters.isWritableUser
     }
   }
 }

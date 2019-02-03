@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import example from './module-example'
+import BlogConfig from '@/configs/blog-config'
 
 Vue.use(Vuex)
 
@@ -17,6 +18,11 @@ export default function (/* { ssrContext } */) {
     },
     state: {
       currentUser: null
+    },
+    getters: {
+      isWritableUser (state) {
+        return state.currentUser && (BlogConfig.writers.includes(state.currentUser.uid))
+      }
     },
     mutations: {
       changeLoginStatus (state, user) {

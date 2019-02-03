@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <q-page>
     <SinglePost v-if="hasPost" v-bind="postData"></SinglePost>
     <div v-else-if="isInvalidPost">Post not found!</div>
     <div v-else></div>
-  </div>
+  </q-page>
 </template>
 
 <script>
@@ -27,6 +27,9 @@ export default {
     },
     isInvalidPost () {
       return this.postData === undefined
+    },
+    isLoggedIn () {
+      return this.$store.getters.isWritableUser
     }
   },
   methods: {
@@ -47,7 +50,10 @@ export default {
         //   console.log('error during getting post: ' + error)
         // })
 
-        const query = this.firestore.collection('posts').where(firebase.firestore.FieldPath.documentId(), '==', postID).where('is_public', '==', true)
+        let query = this.firestore.collection('posts').where(firebase.firestore.FieldPath.documentId(), '==', postID)
+        if (!this.isLoggedIn) {
+          query = query.where('is_public', '==', true)
+        }
         query.get().then(result => {
           if (result.empty) {
             this.postData = undefined

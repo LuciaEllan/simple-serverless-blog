@@ -14,6 +14,16 @@
       </q-list>
     </q-layout-drawer>
 
+    <!-- (Optional) The Footer -->
+    <q-layout-footer>
+      <q-toolbar>
+        <q-toolbar-title>
+          Footer
+          <span slot="subtitle">Subtile</span>
+        </q-toolbar-title>
+      </q-toolbar>
+    </q-layout-footer>
+
     <q-page-container>
       <!-- This is where pages get injected -->
       <router-view />
