@@ -1,4 +1,5 @@
 // Configuration for your app
+const path = require('path')
 
 module.exports = function (ctx) {
   return {
@@ -31,6 +32,11 @@ module.exports = function (ctx) {
           loader: 'eslint-loader',
           exclude: /node_modules/
         })
+        cfg.resolve.alias = {
+          ...cfg.resolve.alias, // This adds the existing alias
+          // Add your own alias like this
+          '@': path.resolve(__dirname, './src')
+        }
       }
     },
     devServer: {
@@ -55,7 +61,13 @@ module.exports = function (ctx) {
         'QItem',
         'QItemMain',
         'QItemSide',
-        'QLayoutFooter'
+        'QLayoutFooter',
+        'QInput',
+        'QChipsInput',
+        'QTabs',
+        'QTab',
+        'QTabPane',
+        'QRouteTab'
       ],
       directives: [
         'Ripple'

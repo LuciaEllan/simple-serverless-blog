@@ -2,6 +2,7 @@ import TheApp from 'layouts/TheApp'
 import ReadPost from 'layouts/ReadPost'
 import SinglePostPage from 'pages/SinglePost'
 import MultiPostPage from 'pages/PagedPost'
+import CreatePostPage from 'pages/CreatePost'
 
 const routes = [
   {
@@ -21,6 +22,10 @@ const routes = [
         children: [
           { path: ':post_id', component: SinglePostPage }
         ]
+      },
+      {
+        path: 'write',
+        component: CreatePostPage
       }
     ]
   }
