@@ -9,7 +9,7 @@
     ]
   },
   "hosting": {
-    "public": "vue/dist",
+    "public": "quasar/dist/spa-mat",
     "ignore": [
       "firebase.json",
       "**/.*",
