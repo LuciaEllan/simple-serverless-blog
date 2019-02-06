@@ -164,6 +164,6 @@ export default {
 }
 </script>
 
-<style>
-@import '~@/css/blog_post.css';
+<style lang="stylus" scoped>
+@import '~@/css/blog_post.styl'
 </style>
