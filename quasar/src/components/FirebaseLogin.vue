@@ -55,11 +55,9 @@ export default {
         // User is signed in.
         console.log('State: logged in')
         console.log(user)
-        this.currentUser = user
       } else {
         // No user is signed in.
         console.log('State: not logged in')
-        this.currentUser = undefined
       }
       this.$store.commit('changeLoginStatus', user)
     })

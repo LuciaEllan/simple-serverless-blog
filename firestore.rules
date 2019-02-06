@@ -1,8 +1,17 @@
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /{document=**} {
-      allow read;
-      allow write, delete: if request.auth != null && request.auth.uid == "ypm0a4PWvIZLlaweYaRKr3JUZSW2";
+    match /posts/{post_id} {
+      allow read: if resource.data.is_public == true;
+    }
+    match /posts/{post_id} {
+      function isSignedIn() {
+        return request.auth != null;
+      }
+
+    	function isPostOwner() {
+      	return isSignedIn() && request.auth.uid == "ypm0a4PWvIZLlaweYaRKr3JUZSW2"
+      }
+      allow read, write, delete: if isPostOwner();
     }
   }
 }

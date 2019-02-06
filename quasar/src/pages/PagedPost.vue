@@ -28,9 +28,6 @@ export default {
   computed: {
     hasPost () {
       return this.postsData !== undefined
-    },
-    isLoggedIn () {
-      return this.$store.getters.isWritableUser
     }
   },
   methods: {
@@ -39,9 +36,7 @@ export default {
       if (this.lastPostRef) {
         query = query.startAfter(this.lastPostRef)
       }
-      if (!this.isLoggedIn) {
-        query = query.where('is_public', '==', true)
-      }
+      query = query.where('is_public', '==', true)
       query.get().then(result => {
         this.postsData = this.postsData.concat(result.docs.map((doc, index, docs) => ({ id: doc.id, ...doc.data() })))
         if (result.empty) {

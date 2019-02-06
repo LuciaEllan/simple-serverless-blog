@@ -11,6 +11,14 @@
           <q-item-side icon="code" />
           <q-item-main label="Profile here" sublabel="Some details" />
         </q-item>
+        <q-item to="/">
+          <q-item-side icon="code" />
+          <q-item-main label="Home" sublabel="Public main page" />
+        </q-item>
+        <q-item to="/edit">
+          <q-item-side icon="code" />
+          <q-item-main label="Write post" sublabel="Add one" />
+        </q-item>
       </q-list>
     </q-layout-drawer>
 

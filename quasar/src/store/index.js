@@ -22,6 +22,9 @@ export default function (/* { ssrContext } */) {
     getters: {
       isWritableUser (state) {
         return state.currentUser && (BlogConfig.writers.includes(state.currentUser.uid))
+      },
+      currentUserID (state) {
+        return state.currentUser ? state.currentUser.uid : undefined
       }
     },
     mutations: {

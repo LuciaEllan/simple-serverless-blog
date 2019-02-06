@@ -55,39 +55,51 @@ export default {
       return marked(this.body)
     }
   },
+  watch: {
+    isLoggedIn () {
+      if (this.isLoggedIn) {
+        this.loadPost()
+      }
+    }
+  },
   mounted () {
     if (this.$route.params.post_id) {
       // read from firebase, and fill in contents for edit
       if (this.isLoggedIn) {
-        const docRef = this.firestore.collection('posts').doc(this.$route.params.post_id)
-        docRef.get().then(post => {
-          if (post.exists) {
-            // assign data
-            this.postID = post.id
-            const postData = post.data()
-            this.title = postData.title
-            this.body = postData.body
-            this.tags = postData.tags
-            console.log(post.data())
-          } else {
-            // does nothing if document does not exist, so this *edit* will make a new post
-            this.$q.notify({
-              message: `Target post is not found.`,
-              position: 'bottom-left',
-              type: 'warning'
-            })
-          }
-        }).catch(error => {
-          this.$q.notify({
-            message: `Post is not loaded because: ${error}`,
-            position: 'bottom-left',
-            type: 'negative'
-          })
-        })
+        this.loadPost()
       }
     }
   },
   methods: {
+    loadPost () {
+      const docRef = this.firestore.collection('posts').doc(this.$route.params.post_id)
+      docRef.get().then(post => {
+        if (post.exists) {
+          // assign data
+          this.postID = post.id
+          const postData = post.data()
+          this.title = postData.title
+          this.body = postData.body
+          this.tags = postData.tags
+          console.log(post.data())
+        } else {
+          console.log(post)
+          // does nothing if document does not exist, so this *edit* will make a new post
+          this.$q.notify({
+            message: `Target post is not found.`,
+            position: 'bottom-left',
+            type: 'warning'
+          })
+        }
+      }).catch(error => {
+        console.log(error)
+        this.$q.notify({
+          message: `Post is not loaded because: ${error}`,
+          position: 'bottom-left',
+          type: 'negative'
+        })
+      })
+    },
     makePost () {
       if ((this.title.length > 0) && (this.body.length > 0)) {
         if (this.postID) {
@@ -95,7 +107,7 @@ export default {
             title: this.title,
             body: this.body,
             tags: this.tags,
-            date: new Date()
+            last_update: new Date()
           }, { merge: true }).then(() => {
             this.$router.push(`/post/${this.postID}`, () => {
               this.$q.notify({
@@ -119,7 +131,8 @@ export default {
             is_public: true,
             author: this.$store.state.currentUser.displayName,
             author_id: this.$store.state.currentUser.uid,
-            date: new Date()
+            date: new Date(),
+            last_update: new Date()
           }).then(docRef => {
             this.$router.push(`/post/${docRef.id}`, () => {
               this.$q.notify({
