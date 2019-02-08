@@ -22,10 +22,10 @@
 </template>
 
 <script>
-import LeftSidebar from '@/components/LeftSidebar'
+import LeftSidebar from 'components/LeftSidebar'
 
 export default {
-  name: 'ReadPost',
+  name: 'MainLayout',
   data () {
     return {
       leftDrawer: true

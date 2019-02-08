@@ -24,8 +24,8 @@
           <q-btn @click="makePost">Save this post... maybe?</q-btn>
         </div>
       </q-page>
-      <q-page v-else class="flex flex-center row">
-        <div>If you're a writer of this blog then login first, please?<br/></div>
+      <q-page v-else class="flex flex-center">
+        <div class="block">If you're a writer of this blog then login first, please?<br/></div>
         <FirebaseLogin></FirebaseLogin>
       </q-page>
     </q-page-container>
@@ -34,7 +34,6 @@
 
 <script>
 import FirebaseLogin from '@/components/FirebaseLogin'
-import marked from 'marked'
 import firebase from 'firebase'
 
 export default {
@@ -52,7 +51,7 @@ export default {
       return this.$store.getters.isWritableUser
     },
     previewCode () {
-      return marked(this.body)
+      return this.$marked.process(this.body)
     }
   },
   watch: {
@@ -166,4 +165,8 @@ export default {
 
 <style lang="stylus" scoped>
 @import '~@/css/blog_post.styl'
+</style>
+
+<style lang="stylus">
+@import '~@/css/code_highlight.styl'
 </style>

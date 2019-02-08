@@ -13,39 +13,17 @@
 
 <script>
 import moment from 'moment'
-import marked from 'marked'
 
 export default {
   name: 'SinglePost',
   props: {
-    title: {
-      type: String,
-      default: 'Post title'
-    },
-    author: {
-      type: String,
-      default: 'Some kind guy'
-    },
-    authorid: {
-      type: String,
-      default: ''
-    },
-    date: {
-      type: [String, Date, Object],
-      default: ''
-    },
-    id: {
-      type: String,
-      default: ''
-    },
-    body: {
-      type: String,
-      default: 'Some random Lorem Ipsum thing'
-    },
-    tags: {
-      type: Array,
-      default: Array
-    }
+    title: { type: String, default: '' },
+    author: { type: String, default: '' },
+    authorid: { type: String, default: '' },
+    date: { type: [String, Date, Object], default: '' },
+    id: { type: String, default: '' },
+    body: { type: String, default: '' },
+    tags: { type: Array, default: Array }
   },
   computed: {
     tagsDisplay () {
@@ -62,7 +40,7 @@ export default {
       return moment.unix(this.date.seconds).format('YYYY-MM-DD HH:mm:ss')
     },
     parsedMarkdown () {
-      return marked(this.body)
+      return this.$marked.process(this.body)
     },
     permalinkRoute () {
       return `/post/${this.id}`
@@ -80,4 +58,8 @@ export default {
 
 <style lang="stylus" scoped>
 @import '~@/css/blog_post.styl'
+</style>
+
+<style lang="stylus">
+@import '~@/css/code_highlight.styl'
 </style>

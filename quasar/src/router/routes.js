@@ -1,4 +1,4 @@
-import ReadPost from 'layouts/ReadPost'
+import MainLayout from 'layouts/MainLayout'
 import SinglePostPage from 'pages/SinglePost'
 import MultiPostPage from 'pages/PagedPost'
 import EditPostPage from 'pages/EditPost'
@@ -6,7 +6,7 @@ import EditPostPage from 'pages/EditPost'
 const routes = [
   {
     path: '/',
-    component: ReadPost,
+    component: MainLayout,
     children: [
       {
         path: '',
@@ -15,16 +15,16 @@ const routes = [
       {
         path: 'post/:post_id',
         component: SinglePostPage
+      },
+      {
+        path: 'edit',
+        component: EditPostPage
+      },
+      {
+        path: 'edit/:post_id',
+        component: EditPostPage
       }
     ]
-  },
-  {
-    path: '/edit',
-    component: EditPostPage
-  },
-  {
-    path: '/edit/:post_id',
-    component: EditPostPage
   }
 ]
 
