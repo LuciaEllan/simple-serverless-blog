@@ -1,10 +1,10 @@
 <template>
-  <div class="blog_post">
-    <div class="q-display-3">{{title}}</div>
-    <div class="q-body-1">at {{dateDisplay}}, by {{author}}</div>
+  <div class="blog_post round-borders shadow-3">
+    <div class="blog_post_title">{{title}}</div>
+    <div class="blog_post_date">at {{dateDisplay}}, by {{author}}</div>
     <div class="blog_post_body" v-html="parsedMarkdown"></div>
-    <div class="q-body-1">Tags: {{tagsDisplay}}</div>
-    <div class="q-body-1">
+    <div class="blog_post_tags">Tags: {{tagsDisplay}}</div>
+    <div class="blog_post_actions">
       <span v-if="isLoggedIn" style="margin-right: 20px;"><router-link :to="editPostRoute">Edit</router-link></span>
       Permalink: <router-link :to="permalinkRoute">{{permalinkRoute}}</router-link>
     </div>
