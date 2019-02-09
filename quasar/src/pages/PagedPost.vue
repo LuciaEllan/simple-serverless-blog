@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <SinglePost v-for="post in postsData" :key="post.id" v-bind="post"></SinglePost>
+    <PostItem v-for="post in postsData" :key="post.id" v-bind="post"></PostItem>
     <div>
       <q-btn v-if="hasMorePosts" @click="loadPost">See more posts</q-btn>
     </div>
@@ -9,13 +9,13 @@
 
 <script>
 import firebase from 'firebase'
-import SinglePost from 'components/SinglePost'
+import PostItem from 'components/PostItem'
 import BlogConfig from '../configs/blog-config'
 
 export default {
-  name: 'SinglePostPage',
+  name: 'PagedPost',
   components: {
-    SinglePost
+    PostItem
   },
   data () {
     return {
@@ -46,7 +46,7 @@ export default {
           console.log(this.lastPostRef)
           console.log(this.lastPostRef.id)
         }
-        console.log(result)
+        // console.log(result)
       }).catch(error => {
         this.postsData = undefined
         this.hasMorePosts = false

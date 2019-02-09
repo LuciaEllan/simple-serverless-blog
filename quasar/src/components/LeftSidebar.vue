@@ -1,7 +1,7 @@
 <template>
   <q-list no-border inset-delimiter>
     <q-item class="row justify-center">
-      <img src="assets/profile.png" />
+      <img src="@/assets/profile.png" />
     </q-item>
     <q-item class="text-center">
       <q-item-main label="Lucia Ellan" sublabel="Wannabe data engineer of all trades" />

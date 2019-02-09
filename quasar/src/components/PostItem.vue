@@ -15,7 +15,7 @@
 import moment from 'moment'
 
 export default {
-  name: 'SinglePost',
+  name: 'PostItem',
   props: {
     title: { type: String, default: '' },
     author: { type: String, default: '' },

@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <SinglePost v-if="hasPost" v-bind="postData"></SinglePost>
+    <PostItem v-if="hasPost" v-bind="postData"></PostItem>
     <div v-else-if="isInvalidPost">Post not found!</div>
     <div v-else></div>
   </q-page>
@@ -8,12 +8,12 @@
 
 <script>
 import firebase from 'firebase'
-import SinglePost from 'components/SinglePost'
+import PostItem from 'components/PostItem'
 
 export default {
-  name: 'SinglePostPage',
+  name: 'SinglePost',
   components: {
-    SinglePost
+    PostItem
   },
   data () {
     return {
@@ -37,7 +37,7 @@ export default {
         docRef.get().then(post => {
           if (post.exists) {
             this.postData = { id: post.id, ...post.data() }
-            console.log(post.data())
+            // console.log(post.data())
           } else {
             this.postData = undefined
             console.log('post does not exist')

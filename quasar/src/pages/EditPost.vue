@@ -1,24 +1,28 @@
 <template>
   <q-layout>
     <q-page-container>
-      <q-page class="flex flex-center row" v-if="isLoggedIn">
-        <q-tabs class="col-12 col-md-10" style="min-height: 700px;" inverted>
+      <q-page v-if="isLoggedIn" class="q-pa-lg">
+        <q-tabs style="min-height: 800px;" inverted @select="onTabChange">
           <!-- Tabs - notice slot="title" -->
           <q-tab default slot="title" name="tab-edit" label="Edit" />
           <q-tab slot="title" name="tab-preview" label="Preview" />
           <!-- Targets -->
           <q-tab-pane name="tab-edit">
-            <div class="col-12 col-md-8 shadow-2">
+            <div class="shadow-2">
               <q-input type="text" class="q-my-sm q-pa-sm" v-model="title" placeholder="Post title" hide-underline />
             </div>
-            <div class="col-12 col-md-8 shadow-2">
-              <q-input type="textarea" class="q-my-sm q-pa-sm" v-model="body" placeholder="Write your post here" rows="20" hide-underline />
+            <div class="shadow-2">
+              <q-input type="textarea" class="q-my-sm q-pa-sm" ref="body" :value="body" placeholder="Write your post here" max-height="550" rows="20" hide-underline />
             </div>
-            <div class="col-12 col-md-8 shadow-2">
+            <div class="shadow-2">
               <q-chips-input class="q-my-sm q-pa-sm" v-model="tags" placeholder="Tags (Write and hit ENTER to add)" hide-underline />
             </div>
           </q-tab-pane>
-          <q-tab-pane name="tab-preview" class="blog_post_body" v-html="previewCode"></q-tab-pane>
+          <q-tab-pane name="tab-preview" class="full-width full-height">
+            <q-scroll-area style="height: 700px;">
+              <div class="blog_post_body" v-html="previewCode"></div>
+            </q-scroll-area>
+          </q-tab-pane>
         </q-tabs>
         <div class="col-12 col-md-10">
           <q-btn @click="makePost">Save this post... maybe?</q-btn>
@@ -51,6 +55,7 @@ export default {
       return this.$store.getters.isWritableUser
     },
     previewCode () {
+      // https://vuejs.org/v2/guide/components-edge-cases.html#Accessing-Child-Component-Instances-amp-Child-Elements
       return this.$marked.process(this.body)
     }
   },
@@ -70,6 +75,16 @@ export default {
     }
   },
   methods: {
+    onTabChange (t) {
+      if (this.$refs.body) {
+        this.updateContentValue()
+      }
+    },
+    updateContentValue () {
+      if (this.$refs.body) {
+        this.body = this.$refs.body.model
+      }
+    },
     loadPost () {
       const docRef = this.firestore.collection('posts').doc(this.$route.params.post_id)
       docRef.get().then(post => {
@@ -80,7 +95,7 @@ export default {
           this.title = postData.title
           this.body = postData.body
           this.tags = postData.tags
-          console.log(post.data())
+          // console.log(post.data())
         } else {
           console.log(post)
           // does nothing if document does not exist, so this *edit* will make a new post
@@ -100,6 +115,7 @@ export default {
       })
     },
     makePost () {
+      this.updateContentValue()
       if ((this.title.length > 0) && (this.body.length > 0)) {
         if (this.postID) {
           this.firestore.collection('posts').doc(this.postID).set({
