@@ -5,12 +5,7 @@
     </q-layout-drawer>
 
     <q-layout-footer>
-      <q-toolbar>
-        <q-toolbar-title>
-          Footer
-          <span slot="subtitle">Subtile</span>
-        </q-toolbar-title>
-      </q-toolbar>
+      <Footer></Footer>
     </q-layout-footer>
 
     <q-page-container>
@@ -23,6 +18,7 @@
 
 <script>
 import LeftSidebar from 'components/LeftSidebar'
+import Footer from 'components/Footer'
 
 export default {
   name: 'MainLayout',
@@ -32,7 +28,8 @@ export default {
     }
   },
   components: {
-    LeftSidebar
+    LeftSidebar,
+    Footer
   }
 }
 </script>
