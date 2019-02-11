@@ -1,19 +1,33 @@
 <template>
-  <q-list no-border inset-delimiter>
+  <q-list no-border class="q-pl-md q-py-lg">
     <q-item class="row justify-center">
       <img src="@/assets/profile.png" />
     </q-item>
     <q-item class="text-center">
-      <q-item-main label="Lucia Ellan" sublabel="Wannabe data engineer of all trades" />
+      <q-item-section>
+        <q-item-label>Lucia Ellan</q-item-label>
+        <q-item-label caption>Wannabe data engineer of all trades</q-item-label>
+      </q-item-section>
     </q-item>
-    <q-item><!-- an empty item --></q-item>
+    <q-item />
+    <q-separator />
+    <q-item />
     <q-item separator to="/" exact>
-      <q-item-side icon="code" />
-      <q-item-main label="Home" sublabel="Public main page" />
+      <q-item-section avatar>
+        <q-icon name="code" />
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>Home</q-item-label>
+        <q-item-label caption>Public main page</q-item-label>
+      </q-item-section>
     </q-item>
     <q-item to="/edit" exact>
-      <q-item-side icon="code" />
-      <q-item-main label="Write post" sublabel="Add one" />
+      <q-item-section avatar>
+        <q-icon name="code" />
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>Write post</q-item-label>
+      </q-item-section>
     </q-item>
   </q-list>
 </template>

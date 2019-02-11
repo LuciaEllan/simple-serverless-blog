@@ -1,12 +1,12 @@
 <template>
   <q-layout view="lhr Lpr fFf">
-    <q-layout-drawer side="left" v-model="leftDrawer">
+    <q-drawer side="left" v-model="leftDrawer">
       <LeftSidebar></LeftSidebar>
-    </q-layout-drawer>
+    </q-drawer>
 
-    <q-layout-footer>
+    <q-footer>
       <Footer></Footer>
-    </q-layout-footer>
+    </q-footer>
 
     <q-page-container>
       <!-- This is where pages get injected -->

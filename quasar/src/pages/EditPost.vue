@@ -1,39 +1,70 @@
 <template>
-  <q-layout>
-    <q-page-container>
-      <q-page v-if="isLoggedIn" class="q-pa-lg">
-        <q-tabs style="min-height: 800px;" inverted @select="onTabChange">
-          <!-- Tabs - notice slot="title" -->
-          <q-tab default slot="title" name="tab-edit" label="Edit" />
-          <q-tab slot="title" name="tab-preview" label="Preview" />
-          <!-- Targets -->
-          <q-tab-pane name="tab-edit">
-            <div class="shadow-2">
-              <q-input type="text" class="q-my-sm q-pa-sm" v-model="title" placeholder="Post title" hide-underline />
-            </div>
-            <div class="shadow-2">
-              <q-input type="textarea" class="q-my-sm q-pa-sm" ref="body" :value="body" placeholder="Write your post here" max-height="550" rows="20" hide-underline />
-            </div>
-            <div class="shadow-2">
-              <q-chips-input class="q-my-sm q-pa-sm" v-model="tags" placeholder="Tags (Write and hit ENTER to add)" hide-underline />
-            </div>
-          </q-tab-pane>
-          <q-tab-pane name="tab-preview" class="full-width full-height">
-            <q-scroll-area style="height: 700px;">
-              <div class="blog_post_body" v-html="previewCode"></div>
-            </q-scroll-area>
-          </q-tab-pane>
-        </q-tabs>
-        <div class="col-12 col-md-10">
-          <q-btn @click="makePost">Save this post... maybe?</q-btn>
+  <q-page v-if="isLoggedIn" class="q-pa-lg">
+    <q-tabs
+      v-model="currentTab"
+      dense
+      class="text-grey"
+      active-color="primary"
+      indicator-color="primary"
+      align="justify"
+      narrow-indicator
+      @input="updateContentValue"
+    >
+      <q-tab name="edit" label="Edit" />
+      <q-tab name="preview" label="Preview" />
+    </q-tabs>
+
+    <q-separator />
+
+    <q-tab-panels v-model="currentTab">
+      <q-tab-panel name="edit">
+        <div class="shadow-2">
+          <q-input type="text" class="q-pa-sm" v-model="title" placeholder="Post title" dense borderless filled />
         </div>
-      </q-page>
-      <q-page v-else class="flex flex-center">
-        <div class="block">If you're a writer of this blog then login first, please?<br/></div>
-        <FirebaseLogin></FirebaseLogin>
-      </q-page>
-    </q-page-container>
-  </q-layout>
+        <div class="shadow-2">
+          <!-- <q-input type="textarea" class="q-my-md q-pa-sm" ref="body" :value="body" placeholder="Write your post here" rows="20" dense borderless filled /> -->
+          <q-input type="textarea" class="q-my-md q-pa-sm" ref="body" :value="body" @change="updateContentValue" placeholder="Write your post here" rows="20" dense borderless filled />
+        </div>
+        <div class="shadow-2 row items-center">
+          <q-input type="text" class="q-pa-sm" placeholder="Hit ENTER to add tag" v-model="currentTag" dense borderless filled @keyup="onTagInput" />
+          <q-chip v-for="tag in tags" :key="tag" class="q-px-sm" color="primary" text-color="white" @remove="onTagRemoved(tag)" removable>{{ tag }}</q-chip>
+        </div>
+      </q-tab-panel>
+      <q-tab-panel name="preview">
+        <q-scroll-area style="height: 700px;">
+          <div class="blog_post_body" v-html="previewCode"></div>
+        </q-scroll-area>
+      </q-tab-panel>
+    </q-tab-panels>
+
+    <!-- <q-tabs style="min-height: 800px;" inverted @select="onTabChange">
+      <q-tab default slot="title" name="tab-edit" label="Edit" />
+      <q-tab slot="title" name="tab-preview" label="Preview" />
+      <q-tab-pane name="tab-edit">
+        <div class="shadow-2">
+          <q-input type="text" class="q-my-sm q-pa-sm" v-model="title" placeholder="Post title" hide-underline />
+        </div>
+        <div class="shadow-2">
+          <q-input type="textarea" class="q-my-sm q-pa-sm" ref="body" :value="body" placeholder="Write your post here" max-height="550" rows="20" hide-underline />
+        </div>
+        <div class="shadow-2">
+          <q-chips-input class="q-my-sm q-pa-sm" v-model="tags" placeholder="Tags (Write and hit ENTER to add)" hide-underline />
+        </div>
+      </q-tab-pane>
+      <q-tab-pane name="tab-preview" class="full-width full-height">
+        <q-scroll-area style="height: 700px;">
+          <div class="blog_post_body" v-html="previewCode"></div>
+        </q-scroll-area>
+      </q-tab-pane>
+    </q-tabs> -->
+    <div class="col-12 col-md-10">
+      <q-btn @click="makePost">Save this post... maybe?</q-btn>
+    </div>
+  </q-page>
+  <q-page v-else class="flex flex-center">
+    <div class="block">If you're a writer of this blog then login first, please?<br/></div>
+    <FirebaseLogin></FirebaseLogin>
+  </q-page>
 </template>
 
 <script>
@@ -47,7 +78,9 @@ export default {
       body: '',
       tags: [],
       postID: undefined,
-      firestore: firebase.firestore()
+      firestore: firebase.firestore(),
+      currentTab: 'edit',
+      currentTag: ''
     }
   },
   computed: {
@@ -61,8 +94,10 @@ export default {
   },
   watch: {
     isLoggedIn () {
-      if (this.isLoggedIn) {
-        this.loadPost()
+      if (this.$route.params.post_id) {
+        if (this.isLoggedIn) {
+          this.loadPost()
+        }
       }
     }
   },
@@ -75,14 +110,22 @@ export default {
     }
   },
   methods: {
-    onTabChange (t) {
-      if (this.$refs.body) {
-        this.updateContentValue()
-      }
-    },
     updateContentValue () {
       if (this.$refs.body) {
-        this.body = this.$refs.body.model
+        const textareaElement = this.$refs.body.$el.getElementsByTagName('textarea')[0]
+        this.body = textareaElement.value
+      }
+    },
+    onTagRemoved (t) {
+      console.log(t)
+      this.tags = this.tags.filter(tag => tag !== t)
+    },
+    onTagInput (e) {
+      if (e.keyCode === 13) {
+        if (this.currentTag.length > 0) {
+          this.tags.push(this.currentTag)
+          this.currentTag = ''
+        }
       }
     },
     loadPost () {

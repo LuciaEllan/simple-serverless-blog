@@ -3,22 +3,69 @@ const path = require('path')
 
 module.exports = function (ctx) {
   return {
-    // app plugins (/src/plugins)
-    plugins: [
+    // app boot file (/src/boot)
+    // --> boot files are part of "main.js"
+    boot: [
       'axios',
       'marked'
     ],
+
     css: [
       'app.styl'
     ],
+
     extras: [
-      ctx.theme.mat ? 'roboto-font' : null,
+      'roboto-font',
       'material-icons', // optional, you are not bound to it
-      // 'ionicons'
-      // 'mdi',
-      'fontawesome'
+      // 'ionicons-v4',
+      // 'mdi-v3',
+      'fontawesome-v5'
+      // 'eva-icons'
     ],
+
+    // framework: 'all', // --- includes everything; for dev only!
+    framework: {
+      components: [
+        'QLayout',
+        'QHeader',
+        'QFooter',
+        'QDrawer',
+        'QPageContainer',
+        'QPage',
+        'QToolbar',
+        'QToolbarTitle',
+        'QBtn',
+        'QIcon',
+        'QList',
+        'QItem',
+        'QItemSection',
+        'QItemLabel',
+        'QSeparator',
+        'QInput',
+        'QChip',
+        'QTabs',
+        'QTab',
+        'QTabPanels',
+        'QTabPanel',
+        'QRouteTab',
+        'QScrollArea'
+      ],
+
+      directives: [
+        'Ripple'
+      ],
+
+      // Quasar plugins
+      plugins: [
+        'Notify'
+      ]
+
+      // iconSet: 'ionicons-v4'
+      // lang: 'de' // Quasar language
+    },
+
     supportIE: false,
+
     build: {
       scopeHoisting: true,
       vueRouterMode: 'history',
@@ -31,7 +78,10 @@ module.exports = function (ctx) {
           enforce: 'pre',
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
-          exclude: /node_modules/
+          exclude: /node_modules/,
+          options: {
+            cache: true
+          }
         })
         cfg.resolve.alias = {
           ...cfg.resolve.alias, // This adds the existing alias
@@ -40,52 +90,20 @@ module.exports = function (ctx) {
         }
       }
     },
+
     devServer: {
       // https: true,
       // port: 8080,
       open: true // opens browser window automatically
     },
-    // framework: 'all' --- includes everything; for dev only!
-    framework: {
-      components: [
-        'QLayout',
-        'QLayoutHeader',
-        'QLayoutDrawer',
-        'QPageContainer',
-        'QPage',
-        'QToolbar',
-        'QToolbarTitle',
-        'QBtn',
-        'QIcon',
-        'QList',
-        'QListHeader',
-        'QItem',
-        'QItemMain',
-        'QItemSide',
-        'QLayoutFooter',
-        'QInput',
-        'QChipsInput',
-        'QTabs',
-        'QTab',
-        'QTabPane',
-        'QRouteTab',
-        'QScrollArea'
-      ],
-      directives: [
-        'Ripple'
-      ],
-      // Quasar plugins
-      plugins: [
-        'Notify'
-      ]
-      // iconSet: ctx.theme.mat ? 'material-icons' : 'ionicons'
-      // i18n: 'de' // Quasar language
-    },
+
     // animations: 'all' --- includes all animations
     animations: [],
+
     ssr: {
       pwa: false
     },
+
     pwa: {
       // workboxPluginMode: 'InjectManifest',
       // workboxOptions: {},
@@ -126,9 +144,11 @@ module.exports = function (ctx) {
         ]
       }
     },
+
     cordova: {
       // id: 'org.cordova.quasar.app'
     },
+
     electron: {
       // bundler: 'builder', // or 'packager'
       extendWebpack (cfg) {

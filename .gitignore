@@ -63,3 +63,6 @@ node_modules/
 
 # dotenv environment variables file
 .env
+
+# old Quasar sites (0.17)
+/quasar_old

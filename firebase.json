@@ -9,7 +9,7 @@
     ]
   },
   "hosting": {
-    "public": "quasar/dist/spa-mat",
+    "public": "quasar/dist/spa",
     "ignore": [
       "firebase.json",
       "**/.*",

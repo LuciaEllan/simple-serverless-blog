@@ -1,5 +1,5 @@
 <template>
-  <div class="blog_post round-borders shadow-3">
+  <div class="blog_post round-borders shadow-3 q-pa-md q-ma-md">
     <div class="blog_post_title">{{title}}</div>
     <div class="blog_post_date">at {{dateDisplay}}, by {{author}}</div>
     <div class="blog_post_body" v-html="parsedMarkdown"></div>
