@@ -13,10 +13,12 @@
       <router-view />
     </q-page-container>
 
+    <RootActionButtons />
   </q-layout>
 </template>
 
 <script>
+import RootActionButtons from 'components/RootActionButtons'
 import LeftSidebar from 'components/LeftSidebar'
 import Footer from 'components/Footer'
 
@@ -28,6 +30,7 @@ export default {
     }
   },
   components: {
+    RootActionButtons,
     LeftSidebar,
     Footer
   }

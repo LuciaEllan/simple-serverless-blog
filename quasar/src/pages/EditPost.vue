@@ -63,12 +63,10 @@
   </q-page>
   <q-page v-else class="flex flex-center">
     <div class="block">If you're a writer of this blog then login first, please?<br/></div>
-    <FirebaseLogin></FirebaseLogin>
   </q-page>
 </template>
 
 <script>
-import FirebaseLogin from '@/components/FirebaseLogin'
 import firebase from 'firebase'
 
 export default {
@@ -215,9 +213,6 @@ export default {
         })
       }
     }
-  },
-  components: {
-    FirebaseLogin
   }
 }
 </script>

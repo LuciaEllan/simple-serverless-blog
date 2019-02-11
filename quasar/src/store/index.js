@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import example from './module-example'
+// import example from './module-example'
 import BlogConfig from '@/configs/blog-config'
 
 Vue.use(Vuex)
@@ -13,9 +13,9 @@ Vue.use(Vuex)
 
 export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
-    modules: {
-      example
-    },
+    // modules: {
+    //   example
+    // },
     state: {
       currentUser: null
     },

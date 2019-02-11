@@ -21,14 +21,6 @@
         <q-item-label caption>Public main page</q-item-label>
       </q-item-section>
     </q-item>
-    <q-item to="/edit" exact>
-      <q-item-section avatar>
-        <q-icon name="code" />
-      </q-item-section>
-      <q-item-section>
-        <q-item-label>Write post</q-item-label>
-      </q-item-section>
-    </q-item>
   </q-list>
 </template>
 
