@@ -86,7 +86,6 @@ export default {
       return this.$store.getters.isWritableUser
     },
     previewCode () {
-      // https://vuejs.org/v2/guide/components-edge-cases.html#Accessing-Child-Component-Instances-amp-Child-Elements
       return this.$marked.process(this.body)
     }
   },

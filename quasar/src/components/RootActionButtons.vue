@@ -1,13 +1,14 @@
 <template>
   <div class="fixed-top-right q-ma-md">
     <q-btn class="q-mx-sm" fab color="primary" icon="fas fa-sign-in-alt" @click="login" v-if="isLoggedOut"></q-btn>
-    <q-btn class="q-mx-sm" fab color="primary" icon="create" to="/edit" v-if="isLoggedIn && isNotEditScreen" />
+    <q-btn class="q-mx-sm" fab color="primary" icon="create" to="/edit" v-if="isWritable" />
     <q-btn class="q-mx-sm" fab color="primary" icon="fas fa-sign-out-alt" @click="logout" v-if="isLoggedIn" />
   </div>
 </template>
 
 <script>
 import firebase from 'firebase'
+import BlogConfig from '@/configs/blog-config'
 
 export default {
   name: 'RootActionButtons',
@@ -25,6 +26,11 @@ export default {
     },
     isNotEditScreen () {
       return this.$route.fullPath.substr(0, 5) !== '/edit'
+    },
+    isWritable () {
+      return this.isLoggedIn &&
+        BlogConfig.writers.includes(this.$store.state.currentUser.uid) &&
+        this.$route.fullPath.substr(0, 5) !== '/edit'
     }
   },
   methods: {

@@ -10,7 +10,7 @@
 <script>
 import firebase from 'firebase'
 import PostItem from 'components/PostItem'
-import BlogConfig from '../configs/blog-config'
+import BlogConfig from '@/configs/blog-config'
 
 export default {
   name: 'PagedPost',
