@@ -23,9 +23,10 @@
         </div>
         <div class="shadow-2">
           <!-- <q-input type="textarea" class="q-my-md q-pa-sm" ref="body" :value="body" placeholder="Write your post here" rows="20" dense borderless filled /> -->
-          <q-input type="textarea" class="q-my-md q-pa-sm" ref="body" :value="body" @change="updateContentValue" placeholder="Write your post here" rows="20" dense borderless filled />
+          <q-input type="textarea" class="q-my-md q-pa-sm" ref="body" :value="body" input-style="line-height: 1.6em;" @change="updateContentValue" placeholder="Write your post here" rows="24" dense borderless />
         </div>
         <div class="shadow-2 row items-center">
+          <q-toggle class="q-pa-sm" color="primary" v-model="isPublic" label="Publicize?" keep-color left-label />
           <q-input type="text" class="q-pa-sm" placeholder="Hit ENTER to add tag" v-model="currentTag" dense borderless filled @keyup="onTagInput" />
           <q-chip v-for="tag in tags" :key="tag" class="q-px-sm" color="primary" text-color="white" @remove="onTagRemoved(tag)" removable>{{ tag }}</q-chip>
         </div>
@@ -36,27 +37,6 @@
         </q-scroll-area>
       </q-tab-panel>
     </q-tab-panels>
-
-    <!-- <q-tabs style="min-height: 800px;" inverted @select="onTabChange">
-      <q-tab default slot="title" name="tab-edit" label="Edit" />
-      <q-tab slot="title" name="tab-preview" label="Preview" />
-      <q-tab-pane name="tab-edit">
-        <div class="shadow-2">
-          <q-input type="text" class="q-my-sm q-pa-sm" v-model="title" placeholder="Post title" hide-underline />
-        </div>
-        <div class="shadow-2">
-          <q-input type="textarea" class="q-my-sm q-pa-sm" ref="body" :value="body" placeholder="Write your post here" max-height="550" rows="20" hide-underline />
-        </div>
-        <div class="shadow-2">
-          <q-chips-input class="q-my-sm q-pa-sm" v-model="tags" placeholder="Tags (Write and hit ENTER to add)" hide-underline />
-        </div>
-      </q-tab-pane>
-      <q-tab-pane name="tab-preview" class="full-width full-height">
-        <q-scroll-area style="height: 700px;">
-          <div class="blog_post_body" v-html="previewCode"></div>
-        </q-scroll-area>
-      </q-tab-pane>
-    </q-tabs> -->
     <div class="col-12 col-md-10">
       <q-btn @click="makePost">Save this post... maybe?</q-btn>
     </div>
@@ -78,7 +58,8 @@ export default {
       postID: undefined,
       firestore: firebase.firestore(),
       currentTab: 'edit',
-      currentTag: ''
+      currentTag: '',
+      isPublic: true
     }
   },
   computed: {
@@ -135,6 +116,7 @@ export default {
           this.title = postData.title
           this.body = postData.body
           this.tags = postData.tags
+          this.isPublic = postData.is_public
           // console.log(post.data())
         } else {
           console.log(post)
@@ -162,6 +144,7 @@ export default {
             title: this.title,
             body: this.body,
             tags: this.tags,
+            is_public: this.isPublic,
             last_update: new Date()
           }, { merge: true }).then(() => {
             this.$router.push(`/post/${this.postID}`, () => {
@@ -183,7 +166,7 @@ export default {
             title: this.title,
             body: this.body,
             tags: this.tags,
-            is_public: true,
+            is_public: this.isPublic,
             author: this.$store.state.currentUser.displayName,
             author_id: this.$store.state.currentUser.uid,
             date: new Date(),

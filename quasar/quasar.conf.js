@@ -45,6 +45,7 @@ module.exports = function (ctx) {
         'QChip',
         'QTabs',
         'QTab',
+        'QToggle',
         'QTabPanels',
         'QTabPanel',
         'QRouteTab',
