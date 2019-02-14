@@ -8,10 +8,10 @@ service cloud.firestore {
         return request.auth != null;
       }
 
-    	function isPostOwner() {
-      	return isSignedIn() && request.auth.uid == "ypm0a4PWvIZLlaweYaRKr3JUZSW2"
+    	function isAdmin() {
+      	return isSignedIn() && request.auth.token.is_admin == true
       }
-      allow read, write, delete: if isPostOwner();
+      allow read, write, delete: if isAdmin();
     }
   }
 }

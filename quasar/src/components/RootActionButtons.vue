@@ -8,7 +8,6 @@
 
 <script>
 import firebase from 'firebase'
-import BlogConfig from '@/configs/blog-config'
 
 export default {
   name: 'RootActionButtons',
@@ -28,9 +27,7 @@ export default {
       return this.$route.fullPath.substr(0, 5) !== '/edit'
     },
     isWritable () {
-      return this.isLoggedIn &&
-        BlogConfig.writers.includes(this.$store.state.currentUser.uid) &&
-        this.$route.fullPath.substr(0, 5) !== '/edit'
+      return this.$store.getters.isWritableUser && this.$route.fullPath.substr(0, 5) !== '/edit'
     }
   },
   methods: {

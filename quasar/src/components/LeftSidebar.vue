@@ -21,6 +21,15 @@
         <q-item-label caption>Public main page</q-item-label>
       </q-item-section>
     </q-item>
+    <q-item to="/post/xTAHFozFARaKmClbGzXf" exact>
+      <q-item-section avatar>
+        <q-icon name="gamepad" />
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>Scoreboard</q-item-label>
+        <q-item-label caption>Personal scoreboard for archive</q-item-label>
+      </q-item-section>
+    </q-item>
     <q-item clickable @click.native="openURL('https://v1.quasar-framework.org/introduction-to-quasar')">
       <q-item-section avatar>
         <q-icon name="code" />

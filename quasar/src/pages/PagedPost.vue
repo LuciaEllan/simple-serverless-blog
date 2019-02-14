@@ -43,7 +43,7 @@ export default {
           this.hasMorePosts = false
         } else {
           this.lastPostRef = result.docs[result.docs.length - 1]
-          console.log(this.lastPostRef)
+          // console.log(this.lastPostRef)
           console.log(this.lastPostRef.id)
         }
         // console.log(result)
