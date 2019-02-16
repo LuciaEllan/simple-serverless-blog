@@ -1,45 +1,40 @@
 <template>
-  <q-page v-if="isLoggedIn" class="q-pa-lg">
-    <q-tabs
-      v-model="currentTab"
-      dense
-      class="text-grey"
-      active-color="primary"
-      indicator-color="primary"
-      align="justify"
-      narrow-indicator
-      @input="updateContentValue"
-    >
-      <q-tab name="edit" label="Edit" />
-      <q-tab name="preview" label="Preview" />
-    </q-tabs>
-
-    <q-separator />
-
-    <q-tab-panels v-model="currentTab">
-      <q-tab-panel name="edit">
-        <div class="shadow-2">
-          <q-input type="text" class="q-pa-sm" v-model="title" placeholder="Post title" dense borderless filled />
+  <q-page v-if="isLoggedIn" class="q-pa-md column full-height">
+    <div class="col-auto row justify-between items-end">
+      <div class="col-auto">
+        <q-tabs v-model="currentTab" dense class="text-grey" active-color="primary" indicator-color="primary" align="left" @input="updateContentValue">
+          <q-tab name="edit" label="Edit" />
+          <q-tab name="preview" label="Preview" />
+        </q-tabs>
+      </div>
+      <div class="col-auto q-gutter-sm">
+        <q-btn class="q-pa-sm" color="primary" icon="attach_file" />
+        <q-btn class="q-pa-sm" color="primary" icon="cloud_upload" @click="makePost" />
+      </div>
+    </div>
+    <q-tab-panels class="col" v-model="currentTab">
+      <q-tab-panel name="edit" class="q-gutter-sm column full-height">
+        <div class="shadow-2 col-auto">
+          <q-input type="text" class="q-pa-xs" v-model="title" placeholder="Post title" dense borderless filled />
         </div>
-        <div class="shadow-2">
+        <div class="shadow-2 col">
           <!-- <q-input type="textarea" class="q-my-md q-pa-sm" ref="body" :value="body" placeholder="Write your post here" rows="20" dense borderless filled /> -->
-          <q-input type="textarea" class="q-my-md q-pa-sm" ref="body" :value="body" input-style="line-height: 1.6em;" @change="updateContentValue" placeholder="Write your post here" rows="24" dense borderless />
+          <q-input type="textarea" id="filled_textarea" class="q-pa-xs full-height" ref="body" :value="body" input-style="line-height: 1.6em; max-height: 100%;" filled @change="updateContentValue" placeholder="Write your post here" dense borderless />
         </div>
-        <div class="shadow-2 row items-center">
-          <q-toggle class="q-pa-sm" color="primary" v-model="isPublic" label="Publicize?" keep-color left-label />
-          <q-input type="text" class="q-pa-sm" placeholder="Hit ENTER to add tag" v-model="currentTag" dense borderless filled @keyup="onTagInput" />
-          <q-chip v-for="tag in tags" :key="tag" class="q-px-sm" color="primary" text-color="white" @remove="onTagRemoved(tag)" removable>{{ tag }}</q-chip>
+        <div class="shadow-2 col-auto row">
+          <q-toggle class="col-auto q-pa-xs" color="primary" v-model="isPublic" label="Publicize?" keep-color left-label />
+          <q-input type="text" class="col-auto q-pa-xs" placeholder="Hit ENTER to add tag" v-model="currentTag" dense borderless filled @keyup="onTagInput" />
+          <div class="col self-center">
+            <q-chip v-for="tag in tags" :key="tag" class="q-px-sm" color="primary" text-color="white" @remove="onTagRemoved(tag)" removable>{{ tag }}</q-chip>
+          </div>
         </div>
       </q-tab-panel>
-      <q-tab-panel name="preview">
-        <q-scroll-area style="height: 700px;">
+      <q-tab-panel name="preview" class="full-height">
+        <q-scroll-area class="full-height">
           <div class="blog_post_body" v-html="previewCode"></div>
         </q-scroll-area>
       </q-tab-panel>
     </q-tab-panels>
-    <div class="col-12 col-md-10">
-      <q-btn @click="makePost">Save this post... maybe?</q-btn>
-    </div>
   </q-page>
   <q-page v-else class="flex flex-center">
     <div class="block">If you're a writer of this blog then login first, please?<br/></div>
@@ -123,7 +118,7 @@ export default {
           // does nothing if document does not exist, so this *edit* will make a new post
           this.$q.notify({
             message: `Target post is not found.`,
-            position: 'bottom-left',
+            position: 'top-right',
             type: 'warning'
           })
         }
@@ -131,8 +126,8 @@ export default {
         console.log(error)
         this.$q.notify({
           message: `Post is not loaded because: ${error}`,
-          position: 'bottom-left',
-          type: 'negative'
+          position: 'top-right',
+          color: 'negative'
         })
       })
     },
@@ -150,15 +145,15 @@ export default {
             this.$router.push(`/post/${this.postID}`, () => {
               this.$q.notify({
                 message: `Successfully edited!`,
-                position: 'bottom-left',
-                type: 'positive'
+                position: 'top-right',
+                color: 'positive'
               })
             })
           }).catch(error => {
             this.$q.notify({
               message: `Post is not edited because: ${error}`,
-              position: 'bottom-left',
-              type: 'negative'
+              position: 'top-right',
+              color: 'negative'
             })
           })
         } else {
@@ -175,23 +170,23 @@ export default {
             this.$router.push(`/post/${docRef.id}`, () => {
               this.$q.notify({
                 message: `Successfully posted!`,
-                position: 'bottom-left',
-                type: 'positive'
+                position: 'top-right',
+                color: 'positive'
               })
             })
           }).catch(error => {
             this.$q.notify({
               message: `Post is not created because: ${error}`,
-              position: 'bottom-left',
-              type: 'negative'
+              position: 'top-right',
+              color: 'negative'
             })
           })
         }
       } else {
         this.$q.notify({
           message: `Make sure to fill in a title and some content.`,
-          position: 'bottom-left',
-          type: 'warning'
+          position: 'top-right',
+          color: 'warning'
         })
       }
     }
@@ -205,4 +200,8 @@ export default {
 
 <style lang="stylus">
 @import '~@/css/code_highlight.styl'
+
+#filled_textarea div
+  height: 100%
+  color: pink
 </style>

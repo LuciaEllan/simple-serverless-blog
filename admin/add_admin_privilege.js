@@ -7,8 +7,7 @@ const privilegeObject = {
 }
 
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://lucia-blog-app.firebaseio.com'
+  credential: admin.credential.cert(serviceAccount)
 })
 admin.auth().setCustomUserClaims(targetUserID, privilegeObject).then(() => {
   console.log('Successfully set custom claims.')
