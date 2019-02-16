@@ -19,7 +19,7 @@
         </div>
         <div class="shadow-2 col">
           <!-- <q-input type="textarea" class="q-my-md q-pa-sm" ref="body" :value="body" placeholder="Write your post here" rows="20" dense borderless filled /> -->
-          <q-input type="textarea" id="filled_textarea" class="q-pa-xs full-height" ref="body" :value="body" input-style="line-height: 1.6em; max-height: 100%;" filled @change="updateContentValue" placeholder="Write your post here" dense borderless />
+          <q-input type="textarea" class="q-pa-xs full-height full-height-children" ref="body" :value="body" input-style="line-height: 1.6em; height: 100%;" filled @change="updateContentValue" placeholder="Write your post here" dense borderless />
         </div>
         <div class="shadow-2 col-auto row">
           <q-toggle class="col-auto q-pa-xs" color="primary" v-model="isPublic" label="Publicize?" keep-color left-label />
@@ -196,12 +196,11 @@ export default {
 
 <style lang="stylus" scoped>
 @import '~@/css/blog_post.styl'
+
+.full-height-children >>> div
+  height: 100%
 </style>
 
 <style lang="stylus">
 @import '~@/css/code_highlight.styl'
-
-#filled_textarea div
-  height: 100%
-  color: pink
 </style>

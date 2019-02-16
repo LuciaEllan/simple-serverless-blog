@@ -1,8 +1,8 @@
 <template>
-  <div class="fixed-bottom-right q-mx-md q-my-xl">
-    <q-btn class="q-ma-sm" fab color="primary" icon="fas fa-sign-in-alt" @click="login" v-if="isLoggedOut"></q-btn>
-    <q-btn class="q-ma-sm" fab color="primary" icon="create" to="/edit" v-if="isWritable" />
-    <q-btn class="q-ma-sm" fab color="primary" icon="fas fa-sign-out-alt" @click="logout" v-if="isLoggedIn" />
+  <div class="fixed-bottom-right q-mx-sm q-my-xl">
+    <q-btn class="q-ma-sm" round size="md" color="primary" icon="fas fa-sign-in-alt" @click="login" v-if="isLoggedOut"></q-btn>
+    <q-btn class="q-ma-xs" round size="md" color="primary" icon="create" to="/edit" v-if="isWritable" />
+    <q-btn class="q-ma-xs" round size="md" color="primary" icon="fas fa-sign-out-alt" @click="logout" v-if="isLoggedIn" />
   </div>
 </template>
 
