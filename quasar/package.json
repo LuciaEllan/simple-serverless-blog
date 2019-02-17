@@ -1,7 +1,7 @@
 {
   "name": "quasar_v1b",
   "version": "0.0.1",
-  "description": "Lucia's minimal blog with Firebase",
+  "description": "Lucia's personal blog, what's inside?",
   "productName": "Lucia's Blog",
   "cordovaId": "org.cordova.quasar.app",
   "author": "Lucia Ellan <lucia.ellan@gmail.com>",

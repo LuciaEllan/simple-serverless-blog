@@ -50,7 +50,8 @@
           <q-tab-panels v-model="filesdTab">
             <!-- local file uploader -->
             <q-tab-panel name="upload" class="q-gutter-sm column full-height">
-              <FirebaseUploader :pathPrefix="filePathPrefix" @uploaded="onFileUploaded" />
+              <FirebaseUploader v-if="isEditMode" :pathPrefix="filePathPrefix" @uploaded="onFileUploaded" />
+              <div v-else>Please save the post first. Once you save it, you'll be able to upload files to this post.</div>
             </q-tab-panel>
             <!-- file listing -->
             <q-tab-panel name="files" class="full-height">
@@ -108,6 +109,9 @@ export default {
     },
     previewCode () {
       return this.$marked.process(this.body)
+    },
+    isEditMode () {
+      return this.postID !== undefined
     },
     filePathPrefix () {
       return `public/${this.postID}/`
