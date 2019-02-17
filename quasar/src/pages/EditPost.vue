@@ -8,17 +8,17 @@
         </q-tabs>
       </div>
       <div class="col-auto q-gutter-sm">
-        <q-btn class="q-pa-sm" color="primary" icon="attach_file" />
+        <q-btn class="q-pa-sm" color="primary" icon="attach_file" @click="invokeFileScreen" />
         <q-btn class="q-pa-sm" color="primary" icon="cloud_upload" @click="makePost" />
       </div>
     </div>
     <q-tab-panels class="col" v-model="currentTab">
+      <!-- post edit texts -->
       <q-tab-panel name="edit" class="q-gutter-sm column full-height">
         <div class="shadow-2 col-auto">
           <q-input type="text" class="q-pa-xs" v-model="title" placeholder="Post title" dense borderless filled />
         </div>
         <div class="shadow-2 col">
-          <!-- <q-input type="textarea" class="q-my-md q-pa-sm" ref="body" :value="body" placeholder="Write your post here" rows="20" dense borderless filled /> -->
           <q-input type="textarea" class="q-pa-xs full-height full-height-children" ref="body" :value="body" input-style="line-height: 1.6em; height: 100%;" filled @change="updateContentValue" placeholder="Write your post here" dense borderless />
         </div>
         <div class="shadow-2 col-auto row">
@@ -29,12 +29,50 @@
           </div>
         </div>
       </q-tab-panel>
+      <!-- post previewer -->
       <q-tab-panel name="preview" class="full-height">
         <q-scroll-area class="full-height">
           <div class="blog_post_body" v-html="previewCode"></div>
         </q-scroll-area>
       </q-tab-panel>
     </q-tab-panels>
+    <!-- file uploader diablog -->
+    <q-dialog v-model="filesScreen" persistent>
+      <q-card>
+        <q-card-section>
+          <div class="text-h6">Attachments</div>
+        </q-card-section>
+        <q-card-section>
+          <q-tabs v-model="filesdTab" dense class="text-grey" active-color="primary" indicator-color="primary" align="left">
+            <q-tab name="upload" label="Upload" />
+            <q-tab name="files" label="Files" />
+          </q-tabs>
+          <q-tab-panels v-model="filesdTab">
+            <!-- local file uploader -->
+            <q-tab-panel name="upload" class="q-gutter-sm column full-height">
+              <FirebaseUploader :pathPrefix="filePathPrefix" @uploaded="onFileUploaded" />
+            </q-tab-panel>
+            <!-- file listing -->
+            <q-tab-panel name="files" class="full-height">
+              <q-list bordered>
+                <q-item v-for="file in files" :key="file.name">
+                  <q-item-section>{{ file.name }}</q-item-section>
+                  <q-item-section side>
+                    <q-btn icon="attachment" @click="onCopyRequested(file, false)" />
+                  </q-item-section>
+                  <q-item-section side>
+                    <q-btn icon="add_photo_alternate" @click="onCopyRequested(file, true)"/>
+                  </q-item-section>
+                </q-item>
+              </q-list>
+            </q-tab-panel>
+          </q-tab-panels>
+        </q-card-section>
+        <q-card-actions align="right">
+          <q-btn flat label="Close" color="primary" v-close-dialog />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </q-page>
   <q-page v-else class="flex flex-center">
     <div class="block">If you're a writer of this blog then login first, please?<br/></div>
@@ -43,6 +81,7 @@
 
 <script>
 import firebase from 'firebase'
+import FirebaseUploader from 'components/FirebaseUploader'
 
 export default {
   data () {
@@ -51,11 +90,17 @@ export default {
       body: '',
       tags: [],
       postID: undefined,
+      files: [],
+      isPublic: true,
       firestore: firebase.firestore(),
       currentTab: 'edit',
       currentTag: '',
-      isPublic: true
+      filesScreen: false,
+      filesdTab: 'upload'
     }
+  },
+  components: {
+    FirebaseUploader
   },
   computed: {
     isLoggedIn () {
@@ -63,6 +108,9 @@ export default {
     },
     previewCode () {
       return this.$marked.process(this.body)
+    },
+    filePathPrefix () {
+      return `public/${this.postID}/`
     }
   },
   watch: {
@@ -90,7 +138,6 @@ export default {
       }
     },
     onTagRemoved (t) {
-      console.log(t)
       this.tags = this.tags.filter(tag => tag !== t)
     },
     onTagInput (e) {
@@ -100,6 +147,39 @@ export default {
           this.currentTag = ''
         }
       }
+    },
+    invokeFileScreen () {
+      this.filesScreen = true
+    },
+    onFileUploaded (payload) {
+      if (!this.files.some(file => {
+        if (file.name === payload.fileName) {
+          file.url = payload.downloadURL
+          return true
+        }
+        return false
+      })) {
+        this.files.push({
+          name: payload.fileName,
+          url: payload.downloadURL
+        })
+      }
+    },
+    onCopyRequested (file, asImage = false) {
+      const code = `${asImage ? '!' : ''}[${file.name}](${file.url})`
+      navigator.clipboard.writeText(code).then(() => {
+        this.$q.notify({
+          message: 'Copied to clipboard.',
+          position: 'top-right',
+          color: 'positive'
+        })
+      }).catch(() => {
+        this.$q.notify({
+          message: `Failed to copy data. URL is: ${file.url}`,
+          position: 'top-right',
+          color: 'negative'
+        })
+      })
     },
     loadPost () {
       const docRef = this.firestore.collection('posts').doc(this.$route.params.post_id)
@@ -111,10 +191,10 @@ export default {
           this.title = postData.title
           this.body = postData.body
           this.tags = postData.tags
+          this.files = postData.files || []
           this.isPublic = postData.is_public
           // console.log(post.data())
         } else {
-          console.log(post)
           // does nothing if document does not exist, so this *edit* will make a new post
           this.$q.notify({
             message: `Target post is not found.`,
@@ -123,7 +203,6 @@ export default {
           })
         }
       }).catch(error => {
-        console.log(error)
         this.$q.notify({
           message: `Post is not loaded because: ${error}`,
           position: 'top-right',
@@ -139,6 +218,7 @@ export default {
             title: this.title,
             body: this.body,
             tags: this.tags,
+            files: this.files,
             is_public: this.isPublic,
             last_update: new Date()
           }, { merge: true }).then(() => {
