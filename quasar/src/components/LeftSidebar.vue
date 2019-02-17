@@ -14,7 +14,7 @@
         <q-item-section>
           <q-item-label caption>
             <span class="text-italic">Lucia Ellan</span> is an online persona and<br />
-            does not reflect real identity in any ways.
+            may not reflect real identity in any ways.
           </q-item-label>
         </q-item-section>
       </q-item>
