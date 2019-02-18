@@ -2,6 +2,7 @@ import MainLayout from 'layouts/MainLayout'
 import SinglePostPage from 'pages/SinglePost'
 import MultiPostPage from 'pages/PagedPost'
 import EditPostPage from 'pages/EditPost'
+import TaggedPostList from 'pages/TaggedPostList'
 
 const routes = [
   {
@@ -23,6 +24,10 @@ const routes = [
       {
         path: 'edit/:post_id',
         component: EditPostPage
+      },
+      {
+        path: 'tag/:tag',
+        component: TaggedPostList
       }
     ]
   }

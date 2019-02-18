@@ -1,5 +1,26 @@
 <template>
-  <div class="blog_post round-borders shadow-3 q-pa-md q-ma-md">
+  <q-card class="q-ma-md">
+    <q-card-section>
+      <div class="blog_post_title">{{ title }}</div>
+      <div class="blog_post_date">at {{ dateDisplay }}, by {{ author }}</div>
+    </q-card-section>
+    <q-separator inset />
+    <q-card-section class="blog_post_body" v-html="parsedMarkdown"></q-card-section>
+    <q-separator inset />
+    <q-card-section class="row justify-between">
+      <div class="col blog_post_tags">
+        Tags:
+        <span v-for="tag in tags" :key="tag" class="q-mx-xs">
+          <router-link :to="`/tag/${tag}`">{{ tag }}</router-link>
+        </span>
+      </div>
+      <div class="col text-right blog_post_actions">
+        <span v-if="isLoggedIn" class="q-mr-md"><router-link :to="editPostRoute">Edit</router-link></span>
+        <router-link :to="permalinkRoute">Permalink</router-link>
+      </div>
+    </q-card-section>
+  </q-card>
+  <!-- <div class="blog_post round-borders shadow-3 q-pa-md q-ma-md">
     <div class="blog_post_title">{{title}}</div>
     <div class="blog_post_date">at {{dateDisplay}}, by {{author}}</div>
     <q-separator />
@@ -9,7 +30,7 @@
       <span v-if="isLoggedIn" style="margin-right: 20px;"><router-link :to="editPostRoute">Edit</router-link></span>
       Permalink: <router-link :to="permalinkRoute">{{permalinkRoute}}</router-link>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script>
