@@ -1,5 +1,7 @@
 {
   "parserOptions": {
+    "sourceType": "module",
+    
     // Required for certain syntax usages
     "ecmaVersion": 6
   },
