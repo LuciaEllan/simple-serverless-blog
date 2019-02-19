@@ -85,6 +85,7 @@ import firebase from 'firebase'
 import FirebaseUploader from 'components/FirebaseUploader'
 
 export default {
+  name: 'EditPost',
   data () {
     return {
       title: '',

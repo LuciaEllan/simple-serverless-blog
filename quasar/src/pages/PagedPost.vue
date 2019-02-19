@@ -1,9 +1,7 @@
 <template>
   <q-page>
     <PostItem v-for="post in postsData" :key="post.id" v-bind="post"></PostItem>
-    <div>
-      <q-btn v-if="hasMorePosts" @click="loadPost">See more posts</q-btn>
-    </div>
+    <q-btn class="q-mx-md q-mb-md" color="primary" v-if="hasMorePosts" @click="loadPost">See more posts</q-btn>
   </q-page>
 </template>
 
@@ -43,8 +41,9 @@ export default {
           this.hasMorePosts = false
         } else {
           this.lastPostRef = result.docs[result.docs.length - 1]
+          this.hasMorePosts = result.docs.length >= BlogConfig.postsPerPage
           // console.log(this.lastPostRef)
-          console.log(this.lastPostRef.id)
+          // console.log(this.lastPostRef.id)
         }
         // console.log(result)
       }).catch(error => {

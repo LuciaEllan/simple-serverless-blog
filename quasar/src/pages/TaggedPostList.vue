@@ -8,13 +8,11 @@
       <q-card-section>
         <div v-for="post in postsData" :key="post.id" class="blog_post_body">
           <router-link :to="`/post/${post.id}`">{{ post.title }}</router-link>
-          <span class="text-caption q-mx-sm" style="color: #777;">{{ getPostDateDisplay(post) }}</span>
+          <span class="text-caption text-grey q-mx-sm">{{ getPostDateDisplay(post) }}</span>
         </div>
       </q-card-section>
     </q-card>
-    <div>
-      <q-btn v-if="hasMorePosts" @click="loadPost">See more posts</q-btn>
-    </div>
+    <q-btn class="q-mx-md q-mb-md" color="primary" v-if="hasMorePosts" @click="loadList">See more posts</q-btn>
   </q-page>
 </template>
 
@@ -47,14 +45,12 @@ export default {
           this.hasMorePosts = false
         } else {
           this.lastPostRef = result.docs[result.docs.length - 1]
-          // console.log(this.lastPostRef)
-          console.log(this.lastPostRef.id)
+          this.hasMorePosts = result.docs.length >= BlogConfig.taggedPostListPerPage
         }
-        // console.log(result)
       }).catch(error => {
         this.postsData = undefined
         this.hasMorePosts = false
-        console.log('error during getting post: ' + error)
+        console.log('error during getting post digest: ' + error)
       })
     },
     getPostDateDisplay (post) {
