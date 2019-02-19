@@ -14,13 +14,19 @@
         <q-item-section>
           <q-item-label caption>
             <span class="text-italic">Lucia Ellan</span> is an online persona and<br />
-            may not reflect real identity in any ways.
+            may not reflect real identity in some ways.
           </q-item-label>
         </q-item-section>
       </q-item>
-      <q-item />
-      <q-separator />
-      <q-item />
+      <q-item class="text-center">
+        <q-item-section>
+          <q-item-label caption>
+            This profile image is created at:<br />
+            <a href="https://make.girls.moe/" target="_blank">MakeGirlsMoe</a>
+          </q-item-label>
+        </q-item-section>
+      </q-item>
+      <q-separator class="q-my-md" />
       <q-item to="/" exact>
         <q-item-section avatar>
           <q-icon name="home" />
@@ -45,7 +51,7 @@
         </q-item-section>
         <q-item-section>
           <q-item-label>Quasar v1 Doc</q-item-label>
-          <q-item-label caption>Bookmark for convenience</q-item-label>
+          <q-item-label caption>Powered by Quasar framework</q-item-label>
         </q-item-section>
       </q-item>
     </q-list>
