@@ -8,7 +8,8 @@
       <Footer></Footer>
     </q-footer>
 
-    <q-page-container>
+    <!-- added relative-position class to make some screensize-dependent things work -->
+    <q-page-container class="layout_body relative-position">
       <!-- This is where pages get injected -->
       <router-view />
     </q-page-container>

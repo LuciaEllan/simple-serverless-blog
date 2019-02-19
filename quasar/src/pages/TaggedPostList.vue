@@ -1,6 +1,7 @@
 <template>
   <q-page>
-    <q-card class="q-ma-md">
+    <LoadingSpinner v-if="isLoadingPost" size="4em" />
+    <q-card v-else class="q-ma-md">
       <q-card-section class="blog_post_title">
         Posts tagged <span class="text-italic text-bold">{{ this.$route.params.tag }}</span>
       </q-card-section>
@@ -8,7 +9,8 @@
       <q-card-section>
         <div v-for="post in postsData" :key="post.id" class="blog_post_body">
           <router-link :to="`/post/${post.id}`">{{ post.title }}</router-link>
-          <span class="text-caption text-grey q-mx-sm">{{ getPostDateDisplay(post) }}</span>
+          <q-icon v-if="!post.is_public" name="lock" color="accent" class="q-ml-xs" />
+          <span class="text-caption text-grey q-mx-md">{{ getPostDateDisplay(post) }}</span>
         </div>
       </q-card-section>
     </q-card>
@@ -18,17 +20,26 @@
 
 <script>
 import firebase from 'firebase'
+import LoadingSpinner from 'components/LoadingSpinner'
 import BlogConfig from '@/configs/blog-config'
 import moment from 'moment'
 
 export default {
   name: 'TaggedPostList',
+  components: {
+    LoadingSpinner
+  },
   data () {
     return {
       postsData: [],
       lastPostRef: undefined,
       hasMorePosts: false,
       firestore: firebase.firestore()
+    }
+  },
+  computed: {
+    isLoadingPost () {
+      return (this.postsData !== undefined) && (this.postsData.length === 0)
     }
   },
   methods: {
@@ -38,7 +49,10 @@ export default {
       if (this.lastPostRef) {
         query = query.startAfter(this.lastPostRef)
       }
-      query = query.where('is_public', '==', true).where('tags', 'array-contains', tag)
+      if (!this.$store.getters.isWritableUser) {
+        query = query.where('is_public', '==', true)
+      }
+      query = query.where('tags', 'array-contains', tag)
       query.get().then(result => {
         this.postsData = this.postsData.concat(result.docs.map((doc, index, docs) => ({ id: doc.id, ...doc.data() })))
         if (result.empty) {

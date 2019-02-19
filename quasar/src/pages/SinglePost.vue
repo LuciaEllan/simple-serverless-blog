@@ -2,18 +2,20 @@
   <q-page>
     <PostItem v-if="hasPost" v-bind="postData"></PostItem>
     <div v-else-if="isInvalidPost">Post not found!</div>
-    <div v-else></div>
+    <LoadingSpinner v-else size="4em" />
   </q-page>
 </template>
 
 <script>
 import firebase from 'firebase'
 import PostItem from 'components/PostItem'
+import LoadingSpinner from 'components/LoadingSpinner'
 
 export default {
   name: 'SinglePost',
   components: {
-    PostItem
+    PostItem,
+    LoadingSpinner
   },
   data () {
     return {
@@ -46,37 +48,6 @@ export default {
           this.postData = undefined
           console.log('error during getting post: ' + error)
         })
-
-        // let query = this.firestore.collection('posts').where(firebase.firestore.FieldPath.documentId(), '==', postID).where('is_public', '==', true)
-        // query.get().then(result => {
-        //   if (result.empty) {
-        //     this.postData = undefined
-        //     console.log('post does not exist')
-        //   } else {
-        //     this.postData = { id: result.docs[0].id, ...result.docs[0].data() }
-        //     console.log(result.docs[0].data())
-        //   }
-        // }).catch(error => {
-        //   this.postData = undefined
-        //   console.log('error during getting post: ' + error)
-        //   // it may be a permission issue, like non-public posts. so query again:
-        //   if (this.$store.getters.currentUserID) {
-        //     query = this.firestore.collection('posts').where(firebase.firestore.FieldPath.documentId(), '==', postID).where('author_id', '==', this.$store.getters.currentUserID)
-        //     query.get().then(result => {
-        //       if (result.empty) {
-        //         this.postData = undefined
-        //         console.log('post does not exist')
-        //       } else {
-        //         this.postData = { id: result.docs[0].id, ...result.docs[0].data() }
-        //         console.log(result.docs[0].data())
-        //       }
-        //     }).catch(error => {
-        //       // this is a real error now
-        //       this.postData = undefined
-        //       console.log('error during getting post: ' + error)
-        //     })
-        //   }
-        // })
       } else {
         // invalid post id specified
         this.postData = undefined

@@ -1,7 +1,10 @@
 <template>
   <q-card class="q-ma-md">
     <q-card-section>
-      <div class="blog_post_title">{{ title }}</div>
+      <div class="blog_post_title">
+        {{ title }}
+        <q-icon v-if="!is_public" name="lock" color="accent"/>
+      </div>
       <div class="blog_post_date">at {{ dateDisplay }}, by {{ author }}</div>
     </q-card-section>
     <q-separator inset />
@@ -45,7 +48,8 @@ export default {
     date: { type: [String, Date, Object], default: '' },
     id: { type: String, default: '' },
     body: { type: String, default: '' },
-    tags: { type: Array, default: Array }
+    tags: { type: Array, default: Array },
+    is_public: { type: Boolean, default: true }
   },
   computed: {
     tagsDisplay () {

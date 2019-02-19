@@ -53,7 +53,8 @@ module.exports = function (ctx) {
         'QDialog',
         'QCard',
         'QCardSection',
-        'QCardActions'
+        'QCardActions',
+        'QSpinnerComment'
       ],
 
       directives: [
