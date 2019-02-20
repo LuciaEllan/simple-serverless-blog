@@ -77,9 +77,26 @@ export default {
       })
     },
     logout () {
-      firebase.auth().signOut().then(() => {
-        console.log('Successfully signed out')
-      })
+      if (this.isNotEditScreen) {
+        firebase.auth().signOut().then(() => {
+          console.log('Successfully signed out')
+        })
+      } else {
+        this.$q.dialog({
+          title: 'You\'re editing a post!',
+          message: 'You\'ll lose any unsaved modification if you sign out now.',
+          ok: {
+            color: 'negative'
+          },
+          cancel: {
+            color: 'primary'
+          }
+        }).onOk(() => {
+          firebase.auth().signOut().then(() => {
+            console.log('Successfully signed out')
+          })
+        })
+      }
     }
   }
 }

@@ -23,17 +23,6 @@
       </div>
     </q-card-section>
   </q-card>
-  <!-- <div class="blog_post round-borders shadow-3 q-pa-md q-ma-md">
-    <div class="blog_post_title">{{title}}</div>
-    <div class="blog_post_date">at {{dateDisplay}}, by {{author}}</div>
-    <q-separator />
-    <div class="blog_post_body" v-html="parsedMarkdown"></div>
-    <div class="blog_post_tags">Tags: {{tagsDisplay}}</div>
-    <div class="blog_post_actions">
-      <span v-if="isLoggedIn" style="margin-right: 20px;"><router-link :to="editPostRoute">Edit</router-link></span>
-      Permalink: <router-link :to="permalinkRoute">{{permalinkRoute}}</router-link>
-    </div>
-  </div> -->
 </template>
 
 <script>
