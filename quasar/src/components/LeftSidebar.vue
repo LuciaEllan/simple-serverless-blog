@@ -2,58 +2,60 @@
   <div class="column justify-between no-wrap full-height q-pl-md q-py-lg">
     <q-list no-border>
       <q-item class="row justify-center">
-        <img src="@/assets/profile.png" />
+        <img src="assets/profile.png" />
       </q-item>
-      <q-item class="text-center">
-        <q-item-section>
-          <q-item-label>Lucia Ellan</q-item-label>
-          <q-item-label caption>Wannabe data engineer of all trades</q-item-label>
+      <q-item v-for="desc in profileDescriptions" :key="desc" class="text-center">
+        <q-item-section avatar v-if="desc.icon !== undefined">
+          <q-icon :name="desc.icon" />
         </q-item-section>
-      </q-item>
-      <q-item class="text-center">
         <q-item-section>
-          <q-item-label caption>
-            <span class="text-italic">Lucia Ellan</span> is an online persona and<br />
-            may not reflect real identity in some ways.
-          </q-item-label>
-        </q-item-section>
-      </q-item>
-      <q-item class="text-center">
-        <q-item-section>
-          <q-item-label caption>
-            This profile image is created at:<br />
-            <a href="https://make.girls.moe/" target="_blank">MakeGirlsMoe</a>
-          </q-item-label>
+          <q-item-label v-if="desc.title !== undefined" v-html="desc.title"></q-item-label>
+          <q-item-label v-if="desc.caption !== undefined" v-html="desc.caption" caption></q-item-label>
         </q-item-section>
       </q-item>
       <q-separator class="q-my-md" />
-      <q-item to="/" exact>
-        <q-item-section avatar>
-          <q-icon name="home" />
-        </q-item-section>
-        <q-item-section>
-          <q-item-label>Home</q-item-label>
-          <q-item-label caption>Public main page</q-item-label>
-        </q-item-section>
-      </q-item>
-      <q-item to="/post/xTAHFozFARaKmClbGzXf" exact>
-        <q-item-section avatar>
-          <q-icon name="gamepad" />
-        </q-item-section>
-        <q-item-section>
-          <q-item-label>Scoreboard</q-item-label>
-          <q-item-label caption>Personal scoreboard for archive</q-item-label>
-        </q-item-section>
-      </q-item>
-      <q-item clickable @click.native="openURL('https://v1.quasar-framework.org/introduction-to-quasar')">
-        <q-item-section avatar>
-          <q-icon name="code" />
-        </q-item-section>
-        <q-item-section>
-          <q-item-label>Quasar v1 Doc</q-item-label>
-          <q-item-label caption>Powered by Quasar framework</q-item-label>
-        </q-item-section>
-      </q-item>
+      <template v-for="menu in leftMenus">
+        <q-item :key="menu.title" v-if="menu.to !== undefined" :to="menu.to" exact>
+          <q-item-section avatar v-if="menu.icon !== undefined">
+            <q-icon :name="menu.icon" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label v-if="menu.title" v-html="menu.title"></q-item-label>
+            <q-item-label caption v-if="menu.caption" v-html="menu.caption"></q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item :key="menu.title" v-if="menu.href !== undefined" clickable @click.native="openURL(menu.href)">
+          <q-item-section avatar v-if="menu.icon !== undefined">
+            <q-icon :name="menu.icon" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label v-if="menu.title" v-html="menu.title"></q-item-label>
+            <q-item-label caption v-if="menu.caption" v-html="menu.caption"></q-item-label>
+          </q-item-section>
+        </q-item>
+      </template>
+      <template v-if="isWritable">
+        <template v-for="menu in leftAdminMenus">
+          <q-item :key="menu.title" v-if="menu.to !== undefined" :to="menu.to" exact>
+            <q-item-section avatar v-if="menu.icon !== undefined">
+              <q-icon :name="menu.icon" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label v-if="menu.title" v-html="menu.title"></q-item-label>
+              <q-item-label caption v-if="menu.caption" v-html="menu.caption"></q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item :key="menu.title" v-if="menu.href !== undefined" clickable @click.native="openURL(menu.href)">
+            <q-item-section avatar v-if="menu.icon !== undefined">
+              <q-icon :name="menu.icon" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label v-if="menu.title" v-html="menu.title"></q-item-label>
+              <q-item-label caption v-if="menu.caption" v-html="menu.caption"></q-item-label>
+            </q-item-section>
+          </q-item>
+        </template>
+      </template>
     </q-list>
     <RootActionList />
   </div>
@@ -62,11 +64,24 @@
 <script>
 import { openURL } from 'quasar'
 import RootActionList from 'components/RootActionList'
+import BlogConfig from 'src/configs/blog-config'
 
 export default {
   name: 'LeftSidebar',
   components: {
     RootActionList
+  },
+  data () {
+    return {
+      profileDescriptions: BlogConfig.profileDescriptions,
+      leftMenus: BlogConfig.leftMenus,
+      leftAdminMenus: BlogConfig.leftAdminMenus
+    }
+  },
+  computed: {
+    isWritable () {
+      return this.$store.getters.isWritableUser
+    }
   },
   methods: {
     openURL
