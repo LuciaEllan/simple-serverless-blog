@@ -2,7 +2,7 @@
   <div class="column justify-between no-wrap full-height q-pl-md q-py-lg">
     <q-list no-border>
       <q-item class="row justify-center">
-        <img src="assets/profile.png" />
+        <img src="@/assets/profile.png" />
       </q-item>
       <q-item v-for="desc in profileDescriptions" :key="desc.key" class="text-center">
         <q-item-section avatar v-if="desc.icon !== undefined">
