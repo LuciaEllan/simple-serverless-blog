@@ -89,6 +89,7 @@ Once you make any change into the site, you have to build it again by using `qua
 
 # Known Issues
 Some issues could be fixed in later time.
+* This code includes Firebase API keys set to my test project. It may considered a leak of secret, but it's OK in this case. That keys are open to the world if it was in a client-side service anyway.
 * Private articles is not visible when you load the page first time, including page refresh. This is caused because I don't wait for auth result when loading articles. Actually, I can't even determine whether the user WILL sign in.
 * I used some hack to make input textarea fill full height on desktop, but it looks like it just failed in mobile browsers.
 * Link copy feature is not available in mobile browsers, what a shame. I'll just have to implement some carat-related editor feature.
