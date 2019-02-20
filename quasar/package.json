@@ -1,8 +1,8 @@
 {
   "name": "quasar_v1b",
   "version": "0.0.1",
-  "description": "It's just a personal blog, what's inside?",
-  "productName": "Lucia's Blog",
+  "description": "Powered by Firebase",
+  "productName": "Simple Serverless Blog",
   "cordovaId": "org.cordova.quasar.app",
   "author": "Lucia Ellan <lucia.ellan@gmail.com>",
   "private": true,
