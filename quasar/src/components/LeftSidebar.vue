@@ -4,7 +4,7 @@
       <q-item class="row justify-center">
         <img src="assets/profile.png" />
       </q-item>
-      <q-item v-for="desc in profileDescriptions" :key="desc" class="text-center">
+      <q-item v-for="desc in profileDescriptions" :key="desc.key" class="text-center">
         <q-item-section avatar v-if="desc.icon !== undefined">
           <q-icon :name="desc.icon" />
         </q-item-section>
@@ -15,7 +15,7 @@
       </q-item>
       <q-separator class="q-my-md" />
       <template v-for="menu in leftMenus">
-        <q-item :key="menu.title" v-if="menu.to !== undefined" :to="menu.to" exact>
+        <q-item :key="menu.key" v-if="menu.to !== undefined" :to="menu.to" exact>
           <q-item-section avatar v-if="menu.icon !== undefined">
             <q-icon :name="menu.icon" />
           </q-item-section>
@@ -24,7 +24,7 @@
             <q-item-label caption v-if="menu.caption" v-html="menu.caption"></q-item-label>
           </q-item-section>
         </q-item>
-        <q-item :key="menu.title" v-else-if="menu.href !== undefined" clickable @click.native="openURL(menu.href)">
+        <q-item :key="menu.key" v-else-if="menu.href !== undefined" clickable @click.native="openURL(menu.href)">
           <q-item-section avatar v-if="menu.icon !== undefined">
             <q-icon :name="menu.icon" />
           </q-item-section>
@@ -33,7 +33,7 @@
             <q-item-label caption v-if="menu.caption" v-html="menu.caption"></q-item-label>
           </q-item-section>
         </q-item>
-        <q-item :key="menu.title" v-else>
+        <q-item :key="menu.key" v-else>
           <q-item-section avatar v-if="menu.icon !== undefined">
             <q-icon :name="menu.icon" />
           </q-item-section>
@@ -45,7 +45,7 @@
       </template>
       <template v-if="isWritable">
         <template v-for="menu in leftAdminMenus">
-          <q-item :key="menu.title" v-if="menu.to !== undefined" :to="menu.to" exact>
+          <q-item :key="menu.key" v-if="menu.to !== undefined" :to="menu.to" exact>
             <q-item-section avatar v-if="menu.icon !== undefined">
               <q-icon :name="menu.icon" />
             </q-item-section>
@@ -54,7 +54,7 @@
               <q-item-label caption v-if="menu.caption" v-html="menu.caption"></q-item-label>
             </q-item-section>
           </q-item>
-          <q-item :key="menu.title" v-else-if="menu.href !== undefined" clickable @click.native="openURL(menu.href)">
+          <q-item :key="menu.key" v-else-if="menu.href !== undefined" clickable @click.native="openURL(menu.href)">
             <q-item-section avatar v-if="menu.icon !== undefined">
               <q-icon :name="menu.icon" />
             </q-item-section>
@@ -63,7 +63,7 @@
               <q-item-label caption v-if="menu.caption" v-html="menu.caption"></q-item-label>
             </q-item-section>
           </q-item>
-          <q-item :key="menu.title" v-else>
+          <q-item :key="menu.key" v-else>
             <q-item-section avatar v-if="menu.icon !== undefined">
               <q-icon :name="menu.icon" />
             </q-item-section>

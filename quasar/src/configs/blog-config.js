@@ -27,4 +27,15 @@ const BLOG_CONFIG = {
   ]
 }
 
+function giveIndexKey (dataArray, prefix) {
+  for (let i = 0; i < dataArray.length; i++) {
+    dataArray[i].key = `${prefix}${i}`
+  }
+}
+
+giveIndexKey(BLOG_CONFIG.contacts, 'contacts')
+giveIndexKey(BLOG_CONFIG.profileDescriptions, 'profileDescriptions')
+giveIndexKey(BLOG_CONFIG.leftMenus, 'leftMenus')
+giveIndexKey(BLOG_CONFIG.leftAdminMenus, 'leftAdminMenus')
+
 export default BLOG_CONFIG

@@ -1,7 +1,6 @@
 <template>
   <q-page>
     <PostItem v-if="hasPost" v-bind="postData"></PostItem>
-    <div v-else-if="isInvalidPost">Post not found!</div>
     <LoadingSpinner v-else size="4em" />
   </q-page>
 </template>
@@ -42,11 +41,20 @@ export default {
             // console.log(post.data())
           } else {
             this.postData = undefined
-            console.log('post does not exist')
+            this.$q.notify({
+              message: `Sorry, cannot find the post. Pleasse check if your address bar is OK.`,
+              position: 'top-right',
+              color: 'negative'
+            })
           }
         }).catch(error => {
           this.postData = undefined
-          console.log('error during getting post: ' + error)
+          if (!error) console.log(error) // just makes linter shut up :X
+          this.$q.notify({
+            message: `Sorry, cannot find the post. Did you signed in for sure, right?`,
+            position: 'top-right',
+            color: 'negative'
+          })
         })
       } else {
         // invalid post id specified
