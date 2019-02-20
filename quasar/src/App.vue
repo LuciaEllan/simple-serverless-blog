@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+import firebase from 'firebase/app'
 import FirebaseConfig from './configs/firebase-config'
 import FirebaseAuth from '@/components/FirebaseAuth'
 

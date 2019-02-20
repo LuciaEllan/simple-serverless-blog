@@ -24,7 +24,8 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/firestore'
 import LoadingSpinner from 'components/LoadingSpinner'
 import BlogConfig from '@/configs/blog-config'
 import moment from 'moment'

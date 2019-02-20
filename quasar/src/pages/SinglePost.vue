@@ -6,7 +6,8 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/firestore'
 import PostItem from 'components/PostItem'
 import LoadingSpinner from 'components/LoadingSpinner'
 
