@@ -1,10 +1,10 @@
 const FIREBASE_CONFIG = {
-  apiKey: 'AIzaSyBjGYYy9vDR02Y9iBEipq9c0YqmCMSVI6I',
-  authDomain: 'lucia-blog-app.firebaseapp.com',
-  databaseURL: 'https://lucia-blog-app.firebaseio.com',
-  projectId: 'lucia-blog-app',
-  storageBucket: 'lucia-blog-app.appspot.com',
-  messagingSenderId: '469872012041'
+  apiKey: 'AIzaSyAPEWQkf9p-LpnDIazuf1Y630pkhUAIx9g',
+  authDomain: 'empty-blog-project.firebaseapp.com',
+  databaseURL: 'https://empty-blog-project.firebaseio.com',
+  projectId: 'empty-blog-project',
+  storageBucket: 'empty-blog-project.appspot.com',
+  messagingSenderId: '258091796759'
 }
 
 export default FIREBASE_CONFIG

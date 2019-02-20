@@ -7,8 +7,8 @@
 
 <script>
 import firebase from 'firebase'
-import FirebaseConfig from './configs/firebase-config'
-import FirebaseAuth from '@/components/FirebaseAuth'
+import FirebaseConfig from 'src/configs/firebase-config'
+import FirebaseAuth from 'src/components/FirebaseAuth'
 
 export default {
   name: 'App',
