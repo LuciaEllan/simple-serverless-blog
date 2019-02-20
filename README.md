@@ -25,9 +25,8 @@ It looks a bit long, but you won't find it hard. You'll setup a complete Firebas
 * A Google account
 
 ## Install required tools first
-
 * Install [Firebase CLI](https://firebase.google.com/docs/cli/) & [Quasar CLI](https://v1.quasar-framework.org/quasar-cli/installation)
-```
+```shell
 npm install -g firebase-tools @quasar/cli
 ```
 
@@ -62,12 +61,11 @@ Once you finish the configuration, you can build the site by running following c
 quasar build
 ```
 This will build your site in `quasar/dist/spa/`. Now deploy the site by running following command in your project root:
-`
+```shell
 firebase deploy
-`
+```
 
 ## Set the admin privilege (to you)
----
 First, download a JSON-formed private key for a service account of your Firebase project. This can be done in your project's setting at [Firebase Console](https://console.firebase.google.com/). Name it `serviceAccountKey.json` and place it into `admin/private/serviceAccountKey.json`.  
 Once you deploy the site, visit the site and log into the site using your Google account (which will be the admin) by clicking the button on bottom-left. If you successfully logged in, now you'll find your user ID in Authentication tab of [Firebase Console](https://console.firebase.google.com/). Take a memo of that ID(you can use the *Copy* button on the right).
 
@@ -91,6 +89,7 @@ Once you make any change into the site, you have to build it again by using `qua
 
 # Known Issues
 Some issues could be fixed in later time.
+* This code includes Firebase API keys set to my test project. It may considered a leak of secret, but it's OK in this case. That keys are open to the world if it was in a client-side service anyway.
 * Private articles is not visible when you load the page first time, including page refresh. This is caused because I don't wait for auth result when loading articles. Actually, I can't even determine whether the user WILL sign in.
 * I used some hack to make input textarea fill full height on desktop, but it looks like it just failed in mobile browsers.
 * Link copy feature is not available in mobile browsers, what a shame. I'll just have to implement some carat-related editor feature.
