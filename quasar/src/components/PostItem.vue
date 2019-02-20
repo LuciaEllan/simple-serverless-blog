@@ -41,16 +41,6 @@ export default {
     is_public: { type: Boolean, default: true }
   },
   computed: {
-    tagsDisplay () {
-      return this.tags.join(', ')
-      // return this.tags.reduce((accm, val) => {
-      //   if (val.length > 0) {
-      //     return `${accm}, ${val}`
-      //   } else {
-      //     return accm
-      //   }
-      // }, '')
-    },
     dateDisplay () {
       return moment.unix(this.date.seconds).format('YYYY-MM-DD HH:mm:ss')
     },
@@ -64,7 +54,6 @@ export default {
       return `/edit/${this.id}`
     },
     isLoggedIn () {
-      console.log(this.$store.getters.isWritableUser)
       return this.$store.getters.isWritableUser
     }
   }

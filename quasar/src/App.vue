@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import firebase from 'firebase'
-import FirebaseConfig from 'src/configs/firebase-config'
+import firebase from 'firebase/app'
+import FirebaseConfig from './configs/firebase-config'
 import FirebaseAuth from 'src/components/FirebaseAuth'
 
 export default {
