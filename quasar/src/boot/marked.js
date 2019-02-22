@@ -10,7 +10,11 @@ renderer.link = (href, title, text) => {
   else return `<a href="${href}" target="_blank">${text}</a>`
 }
 
-const markedOptions = { renderer }
+const markedOptions = {
+  renderer,
+  breaks: true,
+  gfm: true
+}
 const customizedMarked = {
   process (markdown) {
     return marked(markdown, markedOptions)
