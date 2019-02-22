@@ -1,6 +1,7 @@
 const BLOG_CONFIG = {
   postsPerPage: 3,
-  taggedPostListPerPage: 10,
+  taggedPostListPerPage: 15,
+  allPostListPerPage: 15,
   contacts: [
     // fill in with your contacts, this will be shown in the footer
     { label: 'Facebook', icon: 'fab fa-facebook-square', url: 'https://www.facebook.com/' },
@@ -17,7 +18,8 @@ const BLOG_CONFIG = {
     // you may add more menus, any of "title", "caption", and "icon" property is optional
     // "to" property points to relative path, "href" property points to absolute URL
     // if both "to" and "href" exist, then "href" is ignored
-    { title: 'Home', caption: 'Public main page', icon: 'home', to: '/' }
+    { title: 'Home', caption: 'Public main page', icon: 'home', to: '/' },
+    { title: 'Posts', caption: 'All posts in this blog', icon: 'list', to: '/list' }
   ],
   leftAdminMenus: [
     // same as leftMenus, but this menu will be shown only to admins

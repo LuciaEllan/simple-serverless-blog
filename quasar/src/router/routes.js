@@ -3,6 +3,7 @@ import SinglePostPage from 'pages/SinglePost'
 import MultiPostPage from 'pages/PagedPost'
 import EditPostPage from 'pages/EditPost'
 import TaggedPostList from 'pages/TaggedPostList'
+import AllPostList from 'pages/AllPostList'
 
 const routes = [
   {
@@ -28,6 +29,10 @@ const routes = [
       {
         path: 'tag/:tag',
         component: TaggedPostList
+      },
+      {
+        path: 'list',
+        component: AllPostList
       }
     ]
   }

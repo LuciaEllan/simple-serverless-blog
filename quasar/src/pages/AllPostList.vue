@@ -3,7 +3,7 @@
     <LoadingSpinner v-if="isLoadingPost" size="4em" />
     <q-card v-else class="q-ma-md">
       <q-card-section class="blog_post_title">
-        Posts tagged <span class="text-italic text-bold">{{ this.$route.params.tag }}</span>
+        List of all posts
       </q-card-section>
       <q-separator inset />
       <q-card-section>
@@ -15,7 +15,7 @@
           </div>
         </template>
         <div v-else>
-          Ugh, we don't have any posts for this tag.
+          Ugh, we don't have any posts for this blog yet.
         </div>
       </q-card-section>
     </q-card>
@@ -36,12 +36,16 @@ export default {
   mixins: [ PostListing ],
   data () {
     return {
-      postsPerPagination: BlogConfig.taggedPostListPerPage
+      postsPerPagination: BlogConfig.allPostListPerPage
+    }
+  },
+  computed: {
+    listTitle () {
+      return `Posts tagged <span class="text-italic text-bold">${this.$route.params.tag}</span>`
     }
   },
   methods: {
     queryList () {
-      const tag = this.$route.params.tag
       let query = this.firestore.collection('digests').orderBy('date', 'desc').limit(this.postsPerPagination)
       if (this.lastPostRef) {
         query = query.startAfter(this.lastPostRef)
@@ -49,7 +53,6 @@ export default {
       if (!this.$store.getters.isWritableUser) {
         query = query.where('is_public', '==', true)
       }
-      query = query.where('tags', 'array-contains', tag)
       return query.get()
     }
   }
