@@ -45,7 +45,7 @@ Now, take a memo for your project ID.
    * In `admin/`, run `npm install`
    * In `functions/`, run `npm install`
    * In `quasar/`, run `npm install`
-1.Add following line in object named `map` of file `quasar/node_modules/quasar/dist/babel-transforms/imports.js`. This is used to extend builtin `QUploader` component with Firebase storage. [Quasar documentation](https://v1.quasar-framework.org/vue-components/uploader) states that it can be extended by mixing `QUploaderBase` in, but it is not exposed as of 1.0beta. So I had to expose it myself. I hope Quasar team gets a workaround on this.
+1. Add following line in object named `map` of file `quasar/node_modules/quasar/dist/babel-transforms/imports.js`. This is used to extend builtin `QUploader` component with Firebase storage. [Quasar documentation](https://v1.quasar-framework.org/vue-components/uploader) states that it can be extended by mixing `QUploaderBase` in, but it is not exposed as of 1.0beta. So I had to expose it myself. I hope Quasar team gets a workaround on this.
 ```
 "QUploaderBase": "src/components/uploader/uploader-base-mixin.js",
 ```
