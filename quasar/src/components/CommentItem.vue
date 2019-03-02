@@ -3,7 +3,7 @@
     <span class="q-mr-lg text-body1 text-primary">{{ commentData.author }}</span>
     <span class="q-mx-xs text-body1">{{ commentData.body }}</span>
     <span class="q-mx-xs text-caption text-grey">{{ dateDisplay }}</span>
-    <a v-if="isLoggedIn" class="q-mx-md text-caption" @click="deleteComment">Remove</a>
+    <q-btn v-if="isLoggedIn" class="q-mx-md text-caption" label="Remove" @click="deleteComment" flat no-caps />
   </div>
 </template>
 
