@@ -1,6 +1,5 @@
 <template>
   <div class="q-ma-xs">
-    <span class="q-mr-lg text-body1 text-primary">{{ commentData.id }}</span>
     <span class="q-mr-lg text-body1 text-primary">{{ commentData.author }}</span>
     <span class="q-mx-xs text-body1">{{ commentData.body }}</span>
     <span class="q-mx-xs text-caption text-grey">{{ dateDisplay }}</span>
