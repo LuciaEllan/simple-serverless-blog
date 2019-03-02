@@ -1,13 +1,13 @@
 # Simple Serverless Blog
-As the project name proposes, this is a simple blog system powered entirely by Firebase, which is a serverless platform.
+As the project name proposes, this is a simple blog system using [Quasar framework](https://v1.quasar-framework.org/) and backed by [Firebase](https://firebase.google.com/), which is a serverless platform.
 You may use this without adding a billing account onto Firebase.
 
 ## Why use this?
 This is not a feature-rich system, but at least you could have a full control over your system and data with this. And (I think) this is fairly easy to setup. If all you want is just some markdown and a few attached files hosted for free, then this is for you. If what you want is some fully packed CMS, then you'd better to go for [Hugo](https://gohugo.io/) or Confluence.
 
 ## Why I built this?
-After I quit last job at the end of 2018, I felt that I have nothing professional in my field. I wanted to have some knowledge on modern web tech like React or Angular, and finally I chose Vue.js. Coincidentally I had to build my website back which I lost previous one in 2016. So, I just built it myself.
-This system powers [my personal newborn blog](https://www.luciaellan.com/) - with a bit of delicate touch.
+After I quit last job at the end of 2018, I felt that I have nothing professional in my field. I wanted to have some knowledge on modern web tech like React or Angular, and finally I chose Vue.js. Coincidentally I had to build my website back which I lost previous one in 2016. So, I just built this myself.
+This system powers [my personal blog](https://www.luciaellan.com/) - with a little bit of delicate touch.
 
 ## What you'll have with this
 This system does not offer a lot of features. With this system, you'll have:
@@ -15,6 +15,7 @@ This system does not offer a lot of features. With this system, you'll have:
 * An ability to write some markdown articles (rendered via [Marked.js](https://github.com/markedjs/marked)), with tagging enabled
 * An ability to upload your files to Firebase storage and link them on the articles
 * You may write private articles which only can be seen by you
+* Supports simple anonymous commenting
 
 # Setup
 It looks a bit long, but you won't find it hard. You'll setup a complete Firebase project from scratch.
