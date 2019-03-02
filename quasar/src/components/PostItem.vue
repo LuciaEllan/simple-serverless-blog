@@ -22,10 +22,12 @@
         <router-link :to="permalinkRoute">Permalink</router-link>
       </div>
     </q-card-section>
-    <q-separator inset />
-    <q-card-section>
-      <CommentList :post-id="id" />
-    </q-card-section>
+    <template v-if="comment_enabled">
+      <q-separator inset />
+      <q-card-section>
+        <CommentList :post-id="id" />
+      </q-card-section>
+    </template>
   </q-card>
 </template>
 
@@ -43,7 +45,8 @@ export default {
     id: { type: String, default: '' },
     body: { type: String, default: '' },
     tags: { type: Array, default: Array },
-    is_public: { type: Boolean, default: true }
+    is_public: { type: Boolean, default: true },
+    comment_enabled: { type: Boolean, default: true }
   },
   components: {
     CommentList
