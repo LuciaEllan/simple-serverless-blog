@@ -7,7 +7,7 @@
       </div>
     </template>
     <template v-else>
-      <CommentItem v-for="comment in comments" :key="comment.id" :comment-data="comment" />
+      <CommentItem v-for="comment in comments" :key="comment.id" :comment-data="comment" @removed="onCommentRemoved" />
     </template>
   </div>
 </template>
@@ -48,6 +48,9 @@ export default {
     onCommentAdded (commentData) {
       this.comments.push(commentData)
       console.log(commentData)
+    },
+    onCommentRemoved (commentData) {
+      this.comments = this.comments.filter(c => c.id !== commentData.id)
     }
   },
   mounted () {
