@@ -22,7 +22,10 @@
           <q-input type="textarea" class="q-pa-xs full-height full-height-children" ref="body" :value="body" input-style="line-height: 1.6em; height: 100%;" filled @change="updateContentValue" placeholder="Write your post here" dense borderless />
         </div>
         <div class="shadow-2 col-auto row">
-          <q-toggle class="col-auto q-pa-xs" color="primary" v-model="isPublic" label="Publicize?" keep-color left-label />
+          <q-toggle class="col q-pa-xs" color="primary" v-model="isPublic" label="Publicize?" keep-color />
+          <q-toggle class="col q-pa-xs" color="primary" v-model="commentEnabled" label="Enable comments?" keep-color />
+        </div>
+        <div class="shadow-2 col-auto row">
           <q-input type="text" class="col-auto q-pa-xs" placeholder="Hit ENTER to add tag" v-model="currentTag" dense borderless filled @keyup="onTagInput" />
           <div class="col self-center">
             <q-chip v-for="tag in tags" :key="tag" class="q-px-sm" color="primary" text-color="white" @remove="onTagRemoved(tag)" removable>{{ tag }}</q-chip>
@@ -95,6 +98,7 @@ export default {
       postID: undefined,
       files: [],
       isPublic: true,
+      commentEnabled: true,
       firestore: firebase.firestore(),
       currentTab: 'edit',
       currentTag: '',
@@ -199,6 +203,7 @@ export default {
           this.tags = postData.tags
           this.files = postData.files || []
           this.isPublic = postData.is_public
+          this.commentEnabled = postData.comment_enabled !== false
           // console.log(post.data())
         } else {
           // does nothing if document does not exist, so this *edit* will make a new post
@@ -226,6 +231,7 @@ export default {
             tags: this.tags,
             files: this.files,
             is_public: this.isPublic,
+            comment_enabled: this.commentEnabled,
             last_update: new Date()
           }, { merge: true }).then(() => {
             this.$router.push(`/post/${this.postID}`, () => {
@@ -248,6 +254,7 @@ export default {
             body: this.body,
             tags: this.tags,
             is_public: this.isPublic,
+            comment_enabled: this.commentEnabled,
             author: this.$store.state.currentUser.displayName,
             author_id: this.$store.state.currentUser.uid,
             date: new Date(),

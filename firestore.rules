@@ -12,10 +12,16 @@ service cloud.firestore {
       allow read: if resource.data.is_public == true;
     }
     match /posts/{post_id} {
-      allow read, write, delete: if isAdmin();
+      allow read, write: if isAdmin();
     }
     match /digests/{post_id} {
       allow read: if isAdmin() || (resource.data.is_public == true);
+    }
+    match /comments/{comment_id} {
+      allow read, create;
+    }
+    match /comments/{comment_id} {
+      allow read, write: if isAdmin();
     }
   }
 }
