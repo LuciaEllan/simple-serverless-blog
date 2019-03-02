@@ -22,10 +22,15 @@
         <router-link :to="permalinkRoute">Permalink</router-link>
       </div>
     </q-card-section>
+    <q-separator inset />
+    <q-card-section>
+      <CommentList :post-id="id" />
+    </q-card-section>
   </q-card>
 </template>
 
 <script>
+import CommentList from 'components/CommentList'
 import moment from 'moment'
 
 export default {
@@ -39,6 +44,9 @@ export default {
     body: { type: String, default: '' },
     tags: { type: Array, default: Array },
     is_public: { type: Boolean, default: true }
+  },
+  components: {
+    CommentList
   },
   computed: {
     dateDisplay () {
