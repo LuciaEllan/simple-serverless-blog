@@ -46,15 +46,11 @@ Now, take a memo for your project ID.
    * In `admin/`, run `npm install`
    * In `functions/`, run `npm install`
    * In `quasar/`, run `npm install`
-1. Add following line in object named `map` of file `quasar/node_modules/quasar/dist/babel-transforms/imports.js`. This is used to extend builtin `QUploader` component with Firebase storage. [Quasar documentation](https://v1.quasar-framework.org/vue-components/uploader) states that it can be extended by mixing `QUploaderBase` in, but it is not exposed as of 1.0beta. So I had to expose it myself. I hope Quasar team gets a workaround on this.
-```
-"QUploaderBase": "src/components/uploader/uploader-base-mixin.js",
-```
-1. Setup your Firebase project ID by editing `.firebaserc` file.
-1. In [Firebase Console](https://console.firebase.google.com/), obtain config for a web app. Enter that config in `quasar/src/configs/firebase-config.js`
+3. Setup your Firebase project ID by editing `.firebaserc` file.
+4. In [Firebase Console](https://console.firebase.google.com/), obtain config for a web app. Enter that config in `quasar/src/configs/firebase-config.js`
    * Watch out for strict linting, all string must be quoted by **single quote**, and lines must have proper indentation. Tab size is **2**. If those linting rule is broken, the linter will complain at the build time and refuse to build.
-1. Edit `quasar/package.json` for `description` and `productName` field. This will be your browser title and meta description.
-1. (Optional) Set your site-specific config like contacts by editing `quasar/src/configs/blog-config.js`
+5. Edit `quasar/package.json` for `description` and `productName` field. This will be your browser title and meta description.
+6. (Optional) Set your site-specific config like contacts by editing `quasar/src/configs/blog-config.js`
 
 ## Build and deploy!
 Once you finish the configuration, you can build the site by running following command in `quasar/`:
