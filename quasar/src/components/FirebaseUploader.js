@@ -23,6 +23,9 @@ export default {
     },
     isUploading () {
       return this.activeTasks.length > 0
+    },
+    isBusy () {
+      return this.isUploading
     }
   },
   methods: {
@@ -59,7 +62,7 @@ export default {
           // https://firebase.google.com/docs/storage/web/handle-errors
           this.queuedFiles.push(file)
           this.__updateFile(file, 'failed')
-          this.__emit('failed', { file, error })
+          this.$emit('failed', { file, error })
           this.uploadedSize -= file.__uploaded
           this.activeTasks = this.activeTasks.filter(t => t !== uploadTask)
         }, () => {
@@ -69,7 +72,7 @@ export default {
             const fileName = uploadTask.snapshot.ref.name
             this.uploadedFiles.push(file)
             this.__updateFile(file, 'uploaded')
-            this.__emit('uploaded', { file, downloadURL, fullPath, fileName })
+            this.$emit('uploaded', { file, downloadURL, fullPath, fileName })
             this.uploadedSize += file.size - file.__uploaded
           }).catch(error => {
             this.__emit('failed', { file, error })
