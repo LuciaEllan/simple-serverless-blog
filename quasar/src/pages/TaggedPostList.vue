@@ -57,5 +57,5 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '~@/css/blog_post.styl'
+@import '~@/css/blog_post.scss'
 </style>

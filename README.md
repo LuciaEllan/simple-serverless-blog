@@ -78,9 +78,9 @@ Log into the site again (by refreshing or logging out and back in) and now you c
 ## Maintaining/Customizing the site
 This blog engine is just a plain [Quasar](https://v1.quasar-framework.org/) app, which is powered by [Vue.js](https://vuejs.org/). You can make any change in any part of the site and deploy again. Note that all CSS is written in [Stylus](http://stylus-lang.com/), which just accepts plain CSS too.  
 * Left bar menu and contant link at the bottom is managed by `quasar/src/configs/blog-config.js`.
-* Generic color theming is done in `quasar/src/css/quasar.variables.styl`.
-* Code highlight CSS is in `quasar/src/css/code_highlight.styl`. Provided style is `XCode` style included in [highlight.js](https://highlightjs.org/)
-* Individual post display style is defined in `quasar/src/css/blog_post.styl`.
+* Generic color theming is done in `quasar/src/css/quasar.variables.scss`.
+* Code highlight CSS is in `quasar/src/css/code_highlight.scss`. Provided style is `XCode` style included in [highlight.js](https://highlightjs.org/)
+* Individual post display style is defined in `quasar/src/css/blog_post.scss`.
 
 Once you make any change into the site, you have to build it again by using `quasar build` command in `quasar/`, and the deploy it into Firebase with `firebase deploy --only hosting` command. As long as you don't make any changed to back-end logics, you don't need to deploy other things than hosting.
 

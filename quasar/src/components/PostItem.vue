@@ -72,9 +72,9 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '~@/css/blog_post.styl'
+@import '~@/css/blog_post.scss'
 </style>
 
 <style lang="stylus">
-@import '~@/css/code_highlight.styl'
+@import '~@/css/code_highlight.scss'
 </style>
