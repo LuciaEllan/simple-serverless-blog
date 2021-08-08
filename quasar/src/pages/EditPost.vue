@@ -2,7 +2,7 @@
   <q-page v-if="isLoggedIn" class="q-pa-md column full-height">
     <div class="col-auto row justify-between items-end">
       <div class="col-auto">
-        <q-tabs v-model="currentTab" dense class="text-grey" active-color="primary" indicator-color="primary" align="left" @input="updateContentValue">
+        <q-tabs v-model="currentTab" dense class="text-grey" active-color="primary" indicator-color="primary" align="left">
           <q-tab name="edit" label="Edit" />
           <q-tab name="preview" label="Preview" />
         </q-tabs>
@@ -19,7 +19,7 @@
           <q-input type="text" class="q-pa-xs" v-model="title" placeholder="Post title" dense borderless filled />
         </div>
         <div class="shadow-2 col">
-          <q-input type="textarea" class="q-pa-xs full-height full-height-children" ref="body" :value="body" input-style="line-height: 1.6em; height: 100%;" filled @change="updateContentValue" placeholder="Write your post here" dense borderless />
+          <q-input type="textarea" class="q-pa-xs full-height full-height-children" ref="body" v-model="body" input-style="line-height: 1.6em; height: 100%;" filled placeholder="Write your post here" dense borderless />
         </div>
         <div class="shadow-2 col-auto row">
           <q-toggle class="col q-pa-xs" color="primary" v-model="isPublic" label="Publicize?" keep-color />
@@ -141,12 +141,6 @@ export default {
     }
   },
   methods: {
-    updateContentValue () {
-      if (this.$refs.body) {
-        const textareaElement = this.$refs.body.$el.getElementsByTagName('textarea')[0]
-        this.body = textareaElement.value
-      }
-    },
     onTagRemoved (t) {
       this.tags = this.tags.filter(tag => tag !== t)
     },
@@ -222,7 +216,6 @@ export default {
       })
     },
     makePost () {
-      this.updateContentValue()
       if ((this.title.length > 0) && (this.body.length > 0)) {
         if (this.postID) {
           this.firestore.collection('posts').doc(this.postID).set({
