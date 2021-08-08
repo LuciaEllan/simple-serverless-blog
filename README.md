@@ -1,5 +1,5 @@
 # Simple Serverless Blog
-As the project name proposes, this is a simple blog system using [Quasar framework](https://v1.quasar-framework.org/) and backed by [Firebase](https://firebase.google.com/), which is a serverless platform.
+As the project name proposes, this is a simple blog system using [Quasar framework](https://quasar.dev/) and backed by [Firebase](https://firebase.google.com/), which is a serverless platform.
 You may use this without adding a billing account onto Firebase.
 
 ## Why use this?
@@ -7,11 +7,11 @@ This is not a feature-rich system, but at least you could have a full control ov
 
 ## Why I built this?
 After I quit last job at the end of 2018, I felt that I have nothing professional in my field. I wanted to have some knowledge on modern web tech like React or Angular, and finally I chose Vue.js. Coincidentally I had to build my website back which I lost previous one in 2016. So, I just built this myself.
-This system powers [my personal blog](https://www.luciaellan.com/) - with a little bit of delicate touch.
+This engine powers [my personal blog](https://www.luciaellan.com/) - with a little bit of delicate touch.
 
 ## What you'll have with this
 This system does not offer a lot of features. With this system, you'll have:
-* A simple [Quasar](https://v1.quasar-framework.org/) app running on Firebase hosting that you have nothing to manage on server
+* A simple [Quasar](https://quasar.dev/) app running on Firebase hosting that you have nothing to manage on server
 * An ability to write some markdown articles (rendered via [Marked.js](https://github.com/markedjs/marked)), with tagging enabled
 * An ability to upload your files to Firebase storage and link them on the articles
 * You may write private articles which only can be seen by you
@@ -76,7 +76,7 @@ The script will ask you for a target user ID. Provide your ID taken above and yo
 Log into the site again (by refreshing or logging out and back in) and now you can actually write a post. Have fun on some (serverless) blogging!
 
 ## Maintaining/Customizing the site
-This blog engine is just a plain [Quasar](https://v1.quasar-framework.org/) app, which is powered by [Vue.js](https://vuejs.org/). You can make any change in any part of the site and deploy again. Note that all CSS is written in [Stylus](http://stylus-lang.com/), which just accepts plain CSS too.  
+This blog engine is just a plain [Quasar](https://quasar.dev/) app, which is powered by [Vue.js](https://vuejs.org/). You can make any change in any part of the site and deploy again. Note that all CSS is written in [Stylus](http://stylus-lang.com/), which just accepts plain CSS too.  
 * Left bar menu and contant link at the bottom is managed by `quasar/src/configs/blog-config.js`.
 * Generic color theming is done in `quasar/src/css/quasar.variables.scss`.
 * Code highlight CSS is in `quasar/src/css/code_highlight.scss`. Provided style is `XCode` style included in [highlight.js](https://highlightjs.org/)
@@ -88,5 +88,5 @@ Once you make any change into the site, you have to build it again by using `qua
 Some issues could be fixed in later time.
 * This code includes Firebase API keys set to my test project. It may considered a leak of secret, but it's OK in this case. That keys are open to the world if it was in a client-side service anyway.
 * Private articles is not visible when you load the page first time, including page refresh. This is caused because I don't wait for auth result when loading articles. Actually, I can't even determine whether the user WILL sign in.
-* I used some hack to make input textarea fill full height on desktop, but it looks like it just failed in mobile browsers.
+* ~~I used some hack to make input textarea fill full height on desktop, but it looks like it just failed in mobile browsers.~~ Removed this hack during migration to Quasar framework v2 and now it should work as intended.
 * Link copy feature is not available in mobile browsers, what a shame. I'll just have to implement some carat-related editor feature.
