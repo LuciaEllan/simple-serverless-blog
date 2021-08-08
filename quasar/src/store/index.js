@@ -34,7 +34,10 @@ export default function (/* { ssrContext } */) {
 
     // enable strict mode (adds overhead!)
     // for dev mode and --debug builds only
-    strict: process.env.DEBUGGING
+    // strict: process.env.DEBUGGING
+    // I had to disable strict mode because Firebase Auth modifies the current user
+    // TODO: somehow change user handling method
+    strict: false
   })
 
   return Store
