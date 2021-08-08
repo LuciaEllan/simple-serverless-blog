@@ -1,3 +1,4 @@
+import { boot } from 'quasar/wrappers'
 import marked from 'marked'
 import hljs from 'highlight.js'
 
@@ -21,6 +22,6 @@ const customizedMarked = {
   }
 }
 
-export default ({ Vue }) => {
-  Vue.prototype.$marked = customizedMarked
-}
+export default boot(({ app }) => {
+  app.config.globalProperties.$marked = customizedMarked
+})

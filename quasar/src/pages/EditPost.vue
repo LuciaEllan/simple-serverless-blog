@@ -2,7 +2,7 @@
   <q-page v-if="isLoggedIn" class="q-pa-md column full-height">
     <div class="col-auto row justify-between items-end">
       <div class="col-auto">
-        <q-tabs v-model="currentTab" dense class="text-grey" active-color="primary" indicator-color="primary" align="left" @input="updateContentValue">
+        <q-tabs v-model="currentTab" dense class="text-grey" active-color="primary" indicator-color="primary" align="left">
           <q-tab name="edit" label="Edit" />
           <q-tab name="preview" label="Preview" />
         </q-tabs>
@@ -19,7 +19,7 @@
           <q-input type="text" class="q-pa-xs" v-model="title" placeholder="Post title" dense borderless filled />
         </div>
         <div class="shadow-2 col">
-          <q-input type="textarea" class="q-pa-xs full-height full-height-children" ref="body" :value="body" input-style="line-height: 1.6em; height: 100%;" filled @change="updateContentValue" placeholder="Write your post here" dense borderless />
+          <q-input type="textarea" class="q-pa-xs full-height full-height-children" ref="body" v-model="body" input-style="line-height: 1.6em; height: 100%;" filled placeholder="Write your post here" dense borderless />
         </div>
         <div class="shadow-2 col-auto row">
           <q-toggle class="col q-pa-xs" color="primary" v-model="isPublic" label="Publicize?" keep-color />
@@ -141,12 +141,6 @@ export default {
     }
   },
   methods: {
-    updateContentValue () {
-      if (this.$refs.body) {
-        const textareaElement = this.$refs.body.$el.getElementsByTagName('textarea')[0]
-        this.body = textareaElement.value
-      }
-    },
     onTagRemoved (t) {
       this.tags = this.tags.filter(tag => tag !== t)
     },
@@ -208,7 +202,7 @@ export default {
         } else {
           // does nothing if document does not exist, so this *edit* will make a new post
           this.$q.notify({
-            message: `Target post is not found.`,
+            message: 'Target post is not found.',
             position: 'top-right',
             type: 'warning'
           })
@@ -222,7 +216,6 @@ export default {
       })
     },
     makePost () {
-      this.updateContentValue()
       if ((this.title.length > 0) && (this.body.length > 0)) {
         if (this.postID) {
           this.firestore.collection('posts').doc(this.postID).set({
@@ -236,7 +229,7 @@ export default {
           }, { merge: true }).then(() => {
             this.$router.push(`/post/${this.postID}`, () => {
               this.$q.notify({
-                message: `Successfully edited!`,
+                message: 'Successfully edited!',
                 position: 'top-right',
                 color: 'positive'
               })
@@ -262,7 +255,7 @@ export default {
           }).then(docRef => {
             this.$router.push(`/post/${docRef.id}`, () => {
               this.$q.notify({
-                message: `Successfully posted!`,
+                message: 'Successfully posted!',
                 position: 'top-right',
                 color: 'positive'
               })
@@ -277,7 +270,7 @@ export default {
         }
       } else {
         this.$q.notify({
-          message: `Make sure to fill in a title and some content.`,
+          message: 'Make sure to fill in a title and some content.',
           position: 'top-right',
           color: 'warning'
         })
@@ -287,13 +280,14 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
-@import '~@/css/blog_post.styl'
+<style lang="scss" scoped>
+@import '~@/css/blog_post.scss';
 
-.full-height-children >>> div
+.full-height-children :deep(div) {
   height: 100%
+}
 </style>
 
-<style lang="stylus">
-@import '~@/css/code_highlight.styl'
+<style lang="scss">
+@import '~@/css/code_highlight.scss';
 </style>

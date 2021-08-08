@@ -36,7 +36,7 @@ export default {
   methods: {
     loadComment () {
       if (this.postId) {
-        let query = this.firestore.collection('comments').orderBy('date', 'asc').where('post_id', '==', this.postId)
+        const query = this.firestore.collection('comments').orderBy('date', 'asc').where('post_id', '==', this.postId)
         query.get().then(result => {
           this.comments = result.docs.map((doc, index, docs) => ({ id: doc.id, ...doc.data() }))
         }).catch(error => {
