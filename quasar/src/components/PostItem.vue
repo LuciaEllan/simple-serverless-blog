@@ -71,10 +71,14 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
-@import '~@/css/blog_post.styl'
+<style lang="scss" scoped>
+@import '~@/css/blog_post.scss';
+
+h2 {
+  font-size: 1em;
+}
 </style>
 
-<style lang="stylus">
-@import '~@/css/code_highlight.styl'
+<style lang="scss">
+@import '~@/css/code_highlight.scss';
 </style>

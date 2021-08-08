@@ -24,7 +24,7 @@ const BLOG_CONFIG = {
   leftAdminMenus: [
     // same as leftMenus, but this menu will be shown only to admins
     // be sure not to include anything sensitive in security-wise, as this can be compromised
-    { title: 'Quasar v1 Doc', icon: 'code', href: 'https://v1.quasar-framework.org/introduction-to-quasar' },
+    { title: 'Quasar Docs', icon: 'code', href: 'https://quasar.dev/' },
     { caption: 'Manage your menu at<br /><span class="text-italic">quasar/src/configs/blog-config.js</span>' }
   ]
 }

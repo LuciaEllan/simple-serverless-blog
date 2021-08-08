@@ -56,7 +56,7 @@ export default {
         this.hasMorePosts = false
         if (!error) console.log(error) // just makes linter shut up :X
         this.$q.notify({
-          message: `Sorry, cannot find any posts. Did you signed in for sure, right?`,
+          message: 'Sorry, cannot find any posts. Did you signed in for sure, right?',
           position: 'top-right',
           color: 'negative'
         })
