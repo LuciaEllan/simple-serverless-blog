@@ -1,9 +1,10 @@
 # Simple Serverless Blog
 As the project name proposes, this is a simple blog system using [Quasar framework](https://quasar.dev/) and backed by [Firebase](https://firebase.google.com/), which is a serverless platform.
-You may use this without adding a billing account onto Firebase.
+~~You may use this without adding a billing account onto Firebase.~~ Your Firebase project MUST be on Blaze plan, to use Cloud Functions. By being on Blaze plan, you have to pay very small charge for hosting and Cloud Storage where the Cloud Functions build artifact is stored because Blaze plan doesn't offer free quota for storage. Please see [Firebase Pricing](https://firebase.google.com/pricing).
 
 ## Why use this?
-This is not a feature-rich system, but at least you could have a full control over your system and data with this. And (I think) this is fairly easy to setup. If all you want is just some markdown and a few attached files hosted for free, then this is for you. If what you want is some fully packed CMS, then you'd better to go for [Hugo](https://gohugo.io/) or Confluence.
+This is not a feature-rich system, but at least you could have a full control over your system and data with this. And (I think) this is fairly easy to setup. If all you want is just some markdown and a few attached files hosted for ~~free~~ very small charge, then this is for you. If what you want is some fully packed CMS, then you'd better to go for [Hugo](https://gohugo.io/) or Confluence.
+In terms of cost, I'm paying less than $0.01 per month for storage and any other features' usage are in free quota.
 
 ## Why I built this?
 After I quit last job at the end of 2018, I felt that I have nothing professional in my field. I wanted to have some knowledge on modern web tech like React or Angular, and finally I chose Vue.js. Coincidentally I had to build my website back which I lost previous one in 2016. So, I just built this myself.
@@ -33,7 +34,8 @@ npm install -g firebase-tools @quasar/cli
 
 ## Create and setup a Firebase project for your blog
 Get to [Firebase Console](https://console.firebase.google.com/) and create a new project(or use existing one).  
-Then, enable following features (you don't need to enable billing!):
+Then, enable following features ~~(you don't need to enable billing!)~~:
+* Your Firebase project now need to enable billing (Blaze) to use Cloud Functions.
 * In Authentication, enable Google auth provider
 * In Database, enable Firestore(NOT Realtime Database!), security rule doesn't matter.
 * In Storage, enable it. Again, security rule doesn't matter.
@@ -90,3 +92,4 @@ Some issues could be fixed in later time.
 * Private articles is not visible when you load the page first time, including page refresh. This is caused because I don't wait for auth result when loading articles. Actually, I can't even determine whether the user WILL sign in.
 * ~~I used some hack to make input textarea fill full height on desktop, but it looks like it just failed in mobile browsers.~~ Removed this hack during migration to Quasar framework v2 and now it should work as intended.
 * Link copy feature is not available in mobile browsers, what a shame. I'll just have to implement some carat-related editor feature.
+* You might want to set a lifecycle policy for Cloud Storage where the build artifact lies. Those build artifacts don't affect actual service but is charged on Blaze plan.
