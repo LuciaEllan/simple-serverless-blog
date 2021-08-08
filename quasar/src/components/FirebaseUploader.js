@@ -1,4 +1,5 @@
 import { computed } from 'vue'
+import { createUploaderComponent } from 'quasar'
 import firebase from 'firebase/app'
 import 'firebase/storage'
 
@@ -28,7 +29,7 @@ function injectPlugin ({ props, emit, helpers }) {
   // uploader signaling it's waiting
   // on something (blocks all controls)
   const isBusy = computed(() => {
-    return isUploading()
+    return isUploading
   })
 
   // [ REQUIRED! ]
@@ -44,7 +45,6 @@ function injectPlugin ({ props, emit, helpers }) {
   // [ REQUIRED! ]
   // Start the uploading process
   function upload () {
-    if (this.disable) { return }
     const queue = helpers.queuedFiles.value.slice(0)
     if (queue.length > 0) {
       queue.forEach(file => {
@@ -101,9 +101,9 @@ function injectPlugin ({ props, emit, helpers }) {
   }
 }
 
-export default {
+export default createUploaderComponent({
   name: 'FirestoreUploader',
   props,
   emits,
   injectPlugin
-}
+})
