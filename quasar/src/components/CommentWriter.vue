@@ -53,7 +53,7 @@ export default {
           }
           this.firestore.collection('comments').add(commentData).then(docRef => {
             this.$q.notify({
-              message: `Comment is added!`,
+              message: 'Comment is added!',
               position: 'top-right',
               color: 'positive'
             })
@@ -69,14 +69,14 @@ export default {
           })
         } else {
           this.$q.notify({
-            message: `Cannot attach this comment to any post.`,
+            message: 'Cannot attach this comment to any post.',
             position: 'top-right',
             color: 'warning'
           })
         }
       } else {
         this.$q.notify({
-          message: `Make sure to fill in your name and some message to comment.`,
+          message: 'Make sure to fill in your name and some message to comment.',
           position: 'top-right',
           color: 'warning'
         })

@@ -33,7 +33,7 @@ export default {
   components: {
     LoadingSpinner
   },
-  mixins: [ PostListing ],
+  mixins: [PostListing],
   data () {
     return {
       postsPerPagination: BlogConfig.allPostListPerPage
@@ -59,6 +59,6 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
-@import '~@/css/blog_post.scss'
+<style lang="scss" scoped>
+@import '~@/css/blog_post.scss';
 </style>

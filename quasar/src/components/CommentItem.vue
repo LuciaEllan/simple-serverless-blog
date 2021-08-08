@@ -51,7 +51,7 @@ export default {
       }).onOk(() => {
         this.firestore.collection('comments').doc(this.commentData.id).delete().then(() => {
           this.$q.notify({
-            message: `Comment is removed!`,
+            message: 'Comment is removed!',
             position: 'top-right',
             color: 'positive'
           })

@@ -1,9 +1,4 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-
-// import example from './module-example'
-
-Vue.use(Vuex)
+import { createStore } from 'vuex'
 
 /*
  * If not building with SSR mode, you can
@@ -11,7 +6,7 @@ Vue.use(Vuex)
  */
 
 export default function (/* { ssrContext } */) {
-  const Store = new Vuex.Store({
+  const Store = createStore({
     // modules: {
     //   example
     // },
@@ -35,7 +30,11 @@ export default function (/* { ssrContext } */) {
         state.isAdmin = s
       }
     },
-    actions: {}
+    actions: {},
+
+    // enable strict mode (adds overhead!)
+    // for dev mode and --debug builds only
+    strict: process.env.DEBUGGING
   })
 
   return Store

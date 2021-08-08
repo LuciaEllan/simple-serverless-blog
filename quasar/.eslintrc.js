@@ -2,8 +2,10 @@ module.exports = {
   root: true,
 
   parserOptions: {
-    parser: 'babel-eslint',
-    sourceType: 'module'
+    parser: '@babel/eslint-parser',
+    ecmaVersion: 2018, // Allows for the parsing of modern ECMAScript features
+    sourceType: 'module',
+    requireConfigFile: false
   },
 
   env: {
@@ -11,10 +13,8 @@ module.exports = {
   },
 
   extends: [
-    // https://github.com/vuejs/eslint-plugin-vue#priority-a-essential-error-prevention
-    // consider switching to `plugin:vue/strongly-recommended` or `plugin:vue/recommended` for stricter rules.
-    'plugin:vue/essential',
-    '@vue/standard'
+    'plugin:vue/vue3-essential',
+    'standard'
   ],
 
   // required to lint *.vue files
@@ -23,10 +23,16 @@ module.exports = {
   ],
 
   globals: {
-    'ga': true, // Google Analytics
-    'cordova': true,
-    '__statics': true,
-    'process': true
+    ga: 'readonly', // Google Analytics
+    cordova: 'readonly',
+    __statics: 'readonly',
+    __QUASAR_SSR__: 'readonly',
+    __QUASAR_SSR_SERVER__: 'readonly',
+    __QUASAR_SSR_CLIENT__: 'readonly',
+    __QUASAR_SSR_PWA__: 'readonly',
+    process: 'readonly',
+    Capacitor: 'readonly',
+    chrome: 'readonly'
   },
 
   // add your custom rules here
@@ -36,6 +42,8 @@ module.exports = {
     // allow paren-less arrow functions
     'arrow-parens': 'off',
     'one-var': 'off',
+    'no-void': 'off',
+    'multiline-ternary': 'off',
 
     'import/first': 'off',
     'import/named': 'error',

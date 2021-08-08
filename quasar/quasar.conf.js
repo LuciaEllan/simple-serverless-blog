@@ -1,7 +1,9 @@
 // Configuration for your app
 const path = require('path')
+const ESLintPlugin = require('eslint-webpack-plugin')
+const { configure } = require('quasar/wrappers')
 
-module.exports = function (ctx) {
+module.exports = configure(function (ctx) {
   return {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
@@ -23,45 +25,47 @@ module.exports = function (ctx) {
       'fontawesome-v5'
       // 'eva-icons'
     ],
-
-    // framework: 'all', // --- includes everything; for dev only!
     framework: {
-      components: [
-        'QLayout',
-        'QHeader',
-        'QFooter',
-        'QDrawer',
-        'QPageContainer',
-        'QPage',
-        'QToolbar',
-        'QToolbarTitle',
-        'QBtn',
-        'QIcon',
-        'QList',
-        'QItem',
-        'QItemSection',
-        'QItemLabel',
-        'QSeparator',
-        'QInput',
-        'QChip',
-        'QTabs',
-        'QTab',
-        'QToggle',
-        'QTabPanels',
-        'QTabPanel',
-        'QRouteTab',
-        'QScrollArea',
-        'QDialog',
-        'QCard',
-        'QCardSection',
-        'QCardActions',
-        'QSpinnerComment'
-      ],
+      // For special cases outside of where the auto-import strategy can have an impact
+      // (like functional components as one of the examples),
+      // you can manually specify Quasar components/directives to be available everywhere:
+      
+      // components: [
+      //   'QLayout',
+      //   'QHeader',
+      //   'QFooter',
+      //   'QDrawer',
+      //   'QPageContainer',
+      //   'QPage',
+      //   'QToolbar',
+      //   'QToolbarTitle',
+      //   'QBtn',
+      //   'QIcon',
+      //   'QList',
+      //   'QItem',
+      //   'QItemSection',
+      //   'QItemLabel',
+      //   'QSeparator',
+      //   'QInput',
+      //   'QChip',
+      //   'QTabs',
+      //   'QTab',
+      //   'QToggle',
+      //   'QTabPanels',
+      //   'QTabPanel',
+      //   'QRouteTab',
+      //   'QScrollArea',
+      //   'QDialog',
+      //   'QCard',
+      //   'QCardSection',
+      //   'QCardActions',
+      //   'QSpinnerComment'
+      // ],
 
-      directives: [
-        'Ripple',
-        'ClosePopup'
-      ],
+      // directives: [
+      //   'Ripple',
+      //   'ClosePopup'
+      // ],
 
       // Quasar plugins
       plugins: [
@@ -71,31 +75,35 @@ module.exports = function (ctx) {
       ]
 
       // iconSet: 'ionicons-v4'
-      // lang: 'de' // Quasar language
+      // lang: 'en-US' // Quasar language
     },
 
     build: {
       scopeHoisting: true,
       vueRouterMode: 'history',
-      // vueCompiler: true,
+
+      // transpile: false,
+
+      // Add dependencies for transpiling with Babel (Array of string/regex)
+      // (from node_modules, which are by default not transpiled).
+      // Applies only if "transpile" is set to true.
+      // transpileDependencies: [],
+
+      // rtl: true, // https://v2.quasar.dev/options/rtl-support
+      // preloadChunks: true,
+      // showProgress: false,
       // gzip: true,
       // analyze: true,
+
+      // Options below are automatically set depending on the env, set them if you want to override
       // extractCSS: false,
-      extendWebpack (cfg) {
-        cfg.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /node_modules/,
-          options: {
-            cache: true
-          }
-        })
-        cfg.resolve.alias = {
-          ...cfg.resolve.alias, // This adds the existing alias
-          // Add your own alias like this
-          '@': path.resolve(__dirname, './src')
-        }
+
+      // https://v2.quasar.dev/quasar-cli/handling-webpack
+      // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
+      chainWebpack (chain) {
+        chain.plugin('eslint-webpack-plugin')
+          .use(ESLintPlugin, [{ extensions: ['js', 'vue'] }])
+        chain.resolve.alias.set('@', path.resolve(__dirname, './src'))
       }
     },
 
@@ -125,29 +133,29 @@ module.exports = function (ctx) {
         theme_color: '#027be3',
         icons: [
           {
-            'src': 'icons/icon-128x128.png',
-            'sizes': '128x128',
-            'type': 'image/png'
+            src: 'icons/icon-128x128.png',
+            sizes: '128x128',
+            type: 'image/png'
           },
           {
-            'src': 'icons/icon-192x192.png',
-            'sizes': '192x192',
-            'type': 'image/png'
+            src: 'icons/icon-192x192.png',
+            sizes: '192x192',
+            type: 'image/png'
           },
           {
-            'src': 'icons/icon-256x256.png',
-            'sizes': '256x256',
-            'type': 'image/png'
+            src: 'icons/icon-256x256.png',
+            sizes: '256x256',
+            type: 'image/png'
           },
           {
-            'src': 'icons/icon-384x384.png',
-            'sizes': '384x384',
-            'type': 'image/png'
+            src: 'icons/icon-384x384.png',
+            sizes: '384x384',
+            type: 'image/png'
           },
           {
-            'src': 'icons/icon-512x512.png',
-            'sizes': '512x512',
-            'type': 'image/png'
+            src: 'icons/icon-512x512.png',
+            sizes: '512x512',
+            type: 'image/png'
           }
         ]
       }
@@ -181,4 +189,4 @@ module.exports = function (ctx) {
       }
     }
   }
-}
+})

@@ -208,7 +208,7 @@ export default {
         } else {
           // does nothing if document does not exist, so this *edit* will make a new post
           this.$q.notify({
-            message: `Target post is not found.`,
+            message: 'Target post is not found.',
             position: 'top-right',
             type: 'warning'
           })
@@ -236,7 +236,7 @@ export default {
           }, { merge: true }).then(() => {
             this.$router.push(`/post/${this.postID}`, () => {
               this.$q.notify({
-                message: `Successfully edited!`,
+                message: 'Successfully edited!',
                 position: 'top-right',
                 color: 'positive'
               })
@@ -262,7 +262,7 @@ export default {
           }).then(docRef => {
             this.$router.push(`/post/${docRef.id}`, () => {
               this.$q.notify({
-                message: `Successfully posted!`,
+                message: 'Successfully posted!',
                 position: 'top-right',
                 color: 'positive'
               })
@@ -277,7 +277,7 @@ export default {
         }
       } else {
         this.$q.notify({
-          message: `Make sure to fill in a title and some content.`,
+          message: 'Make sure to fill in a title and some content.',
           position: 'top-right',
           color: 'warning'
         })
@@ -287,13 +287,14 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
-@import '~@/css/blog_post.scss'
+<style lang="scss" scoped>
+@import '~@/css/blog_post.scss';
 
-.full-height-children >>> div
+.full-height-children :deep(div) {
   height: 100%
+}
 </style>
 
-<style lang="stylus">
-@import '~@/css/code_highlight.scss'
+<style lang="scss">
+@import '~@/css/code_highlight.scss';
 </style>

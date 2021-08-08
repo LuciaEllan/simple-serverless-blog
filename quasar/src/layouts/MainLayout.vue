@@ -1,5 +1,6 @@
 <template>
   <q-layout view="lhr Lpr fFf">
+    <FirebaseAuth />
     <q-drawer side="left" v-model="leftDrawer">
       <LeftSidebar></LeftSidebar>
     </q-drawer>
@@ -19,6 +20,7 @@
 <script>
 import LeftSidebar from 'components/LeftSidebar'
 import Footer from 'components/Footer'
+import FirebaseAuth from 'src/components/FirebaseAuth'
 
 export default {
   name: 'MainLayout',
@@ -28,6 +30,7 @@ export default {
     }
   },
   components: {
+    FirebaseAuth,
     LeftSidebar,
     Footer
   }

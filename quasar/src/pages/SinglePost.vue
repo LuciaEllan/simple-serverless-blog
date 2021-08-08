@@ -43,7 +43,7 @@ export default {
           } else {
             this.postData = undefined
             this.$q.notify({
-              message: `Sorry, cannot find the post. Pleasse check if your address bar is OK.`,
+              message: 'Sorry, cannot find the post. Pleasse check if your address bar is OK.',
               position: 'top-right',
               color: 'negative'
             })
@@ -52,7 +52,7 @@ export default {
           this.postData = undefined
           if (!error) console.log(error) // just makes linter shut up :X
           this.$q.notify({
-            message: `Sorry, cannot find the post. Did you signed in for sure, right?`,
+            message: 'Sorry, cannot find the post. Did you signed in for sure, right?',
             position: 'top-right',
             color: 'negative'
           })
